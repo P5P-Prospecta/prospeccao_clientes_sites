@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prospector de Sites — Painel</title>
+<style>
+  :root{
+    --bg:#f6f4ee; --surface:#ffffff; --ink:#232220; --muted:#6b6a63;
+    --line:#e4e1d6; --accent:#d85a30; --ok:#3b6d11; --warn:#854f0b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+  header{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid var(--line);background:var(--surface)}
+  header h1{font-size:16px;margin:0;font-weight:700}
+  header .quem{font-size:13px;color:var(--muted)}
+  header button{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer}
+  main{max-width:1000px;margin:0 auto;padding:24px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:20px}
+  .card h2{font-size:15px;margin:0 0 12px}
+  label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:12px 0 4px}
+  input,select{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 11px;font-size:14px;background:#fff;color:var(--ink)}
+  .row{display:flex;gap:12px}
+  .row > div{flex:1}
+  button.principal{border:0;border-radius:10px;padding:11px 22px;font-size:13.5px;font-weight:700;cursor:pointer;background:var(--accent);color:#fff;margin-top:16px}
+  .msg{font-size:13px;margin-top:10px}
+  .msg.erro{color:#a32d2d}
+  .msg.ok{color:var(--ok)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+  .badge{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11.5px;font-weight:700}
+  .b-novo{background:#e6f1fb;color:#0c447c}
+  .b-redesenhado{background:#faeeda;color:#633806}
+  .b-publicado{background:#eaf3de;color:#27500a}
+  .b-proposta{background:#eeedfe;color:#3c3489}
+  .b-respondeu{background:#fbeaf0;color:#72243e}
+  .b-fechado{background:#e1f5ee;color:#085041}
+  .b-descartado{background:#f1efe8;color:#444441}
+  .vazio{color:var(--muted);font-size:13.5px;padding:20px 0;text-align:center}
+  #login{max-width:380px;margin:80px auto}
+  .tabs{display:flex;gap:8px;margin-bottom:18px}
+  .tabs button{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 14px;font-size:13px;cursor:pointer}
+  .tabs button.ativo{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .hidden{display:none}
+  .ok-inline{color:var(--ok);font-weight:700;font-size:12.5px}
+  .warn-inline{color:var(--warn);font-weight:700;font-size:12.5px}
+</style>
+</head>
+<body>
+
+<div id="login" class="card">
+  <h2 id="login-titulo">Entrar</h2>
+  <label>E-mail</label>
+  <input id="in-email" type="email" placeholder="voce@email.com">
+  <label>Senha</label>
+  <input id="in-senha" type="password" placeholder="mínimo 6 caracteres">
+  <button class="principal" onclick="entrar()">Entrar</button>
+  <button class="principal" style="background:var(--ink);margin-left:8px" onclick="cadastrar()">Criar conta</button>
+  <div id="login-msg" class="msg"></div>
+</div>
+
+<div id="app" class="hidden">
+  <header>
+    <h1>Prospector de Sites</h1>
+    <div style="display:flex;align-items:center;gap:14px">
+      <span class="quem" id="quem"></span>
+      <button onclick="sair()">Sair</button>
+    </div>
+  </header>
+  <main>
+    <div class="tabs">
+      <button id="tab-leads" class="ativo" onclick="mostrarAba('leads')">Leads</button>
+      <button id="tab-config" onclick="mostrarAba('config')">Configurações</button>
+    </div>
+
+    <div id="aba-leads">
+      <div class="card">
+        <h2>Funil</h2>
+        <div id="funil" style="display:flex;gap:24px;flex-wrap:wrap;font-size:13.5px"></div>
+      </div>
+      <div class="card">
+        <h2>Seus leads</h2>
+        <div id="tabela-leads"></div>
+      </div>
+    </div>
+
+    <div id="aba-config" class="hidden">
+      <div class="card">
+        <h2>Meus dados</h2>
+        <label>Nome completo</label>
+        <input id="cfg-nome">
+        <label>Como se apresenta</label>
+        <input id="cfg-apresentacao">
+        <label>WhatsApp</label>
+        <input id="cfg-whatsapp">
+        <div class="row">
+          <div>
+            <label>Cidade padrão</label>
+            <input id="cfg-cidade">
+          </div>
+          <div>
+            <label>Leads por busca</label>
+            <input id="cfg-leads" type="number">
+          </div>
+        </div>
+        <button class="principal" onclick="salvarPerfil()">Salvar meus dados</button>
+        <div id="cfg-msg" class="msg"></div>
+      </div>
+      <div class="card">
+        <h2>Conexão GitHub</h2>
+        <p style="font-size:13px;color:var(--muted);margin:0 0 6px">Gere em github.com/settings/tokens (Tokens classic → escopo <code>repo</code>).</p>
+        <label>Usuário do GitHub</label>
+        <input id="cfg-gh-usuario">
+        <label>Token</label>
+        <input id="cfg-gh-token" type="password" placeholder="cole aqui pra atualizar">
+        <button class="principal" onclick="salvarGithub()">Salvar conexão</button>
+        <div id="gh-msg" class="msg"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+const SUPABASE_URL = "https://jzlkqzamkgxxlbmpfisq.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp6bGtxemFta2d4eGxibXBmaXNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcyNjQxODQsImV4cCI6MjEwMjg0MDE4NH0.csGO129p80m2dP-6iLQkzT7PnEOal2ZgheOKi9o_u-s";
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const STATUS_LABEL = {novo:'Novo', redesenhado:'Redesenhado', publicado:'Publicado', proposta:'Proposta', respondeu:'Respondeu', fechado:'Fechado', descartado:'Descartado'};
+
+async function entrar(){
+  const email = document.getElementById('in-email').value.trim();
+  const senha = document.getElementById('in-senha').value;
+  const msg = document.getElementById('login-msg');
+  msg.textContent = ''; msg.className = 'msg';
+  const { error } = await sb.auth.signInWithPassword({ email, password: senha });
+  if(error){ msg.textContent = 'E-mail ou senha incorretos.'; msg.className='msg erro'; return; }
+  await iniciarApp();
+}
+
+async function cadastrar(){
+  const email = document.getElementById('in-email').value.trim();
+  const senha = document.getElementById('in-senha').value;
+  const msg = document.getElementById('login-msg');
+  msg.textContent = ''; msg.className = 'msg';
+  if(!email || senha.length < 6){ msg.textContent = 'Preencha e-mail e uma senha com 6+ caracteres.'; msg.className='msg erro'; return; }
+  const { error } = await sb.auth.signUp({ email, password: senha });
+  if(error){ msg.textContent = error.message; msg.className='msg erro'; return; }
+  msg.textContent = 'Conta criada! Use esse mesmo e-mail e senha aqui e no /setup do Claude Code.';
+  msg.className='msg ok';
+}
+
+async function sair(){
+  await sb.auth.signOut();
+  document.getElementById('app').classList.add('hidden');
+  document.getElementById('login').classList.remove('hidden');
+}
+
+function mostrarAba(nome){
+  document.getElementById('aba-leads').classList.toggle('hidden', nome!=='leads');
+  document.getElementById('aba-config').classList.toggle('hidden', nome!=='config');
+  document.getElementById('tab-leads').classList.toggle('ativo', nome==='leads');
+  document.getElementById('tab-config').classList.toggle('ativo', nome==='config');
+}
+
+async function iniciarApp(){
+  const { data: { user } } = await sb.auth.getUser();
+  if(!user){ return; }
+  document.getElementById('login').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  document.getElementById('quem').textContent = user.email;
+  await carregarPerfil();
+  await carregarLeads();
+}
+
+async function carregarPerfil(){
+  const { data } = await sb.from('perfis').select('*').maybeSingle();
+  if(!data) return;
+  document.getElementById('cfg-nome').value = data.nome || '';
+  document.getElementById('cfg-apresentacao').value = data.apresentacao || '';
+  document.getElementById('cfg-whatsapp').value = data.whatsapp || '';
+  document.getElementById('cfg-cidade').value = data.cidade || '';
+  document.getElementById('cfg-leads').value = data.leads_por_busca || 10;
+  document.getElementById('cfg-gh-usuario').value = data.github_usuario || '';
+  document.getElementById('gh-msg').innerHTML = data.github_token ? '<span class="ok-inline">✓ token configurado</span>' : '<span class="warn-inline">falta o token</span>';
+}
+
+async function salvarPerfil(){
+  const { data: { user } } = await sb.auth.getUser();
+  const corpo = {
+    user_id: user.id,
+    nome: document.getElementById('cfg-nome').value,
+    apresentacao: document.getElementById('cfg-apresentacao').value,
+    whatsapp: document.getElementById('cfg-whatsapp').value,
+    cidade: document.getElementById('cfg-cidade').value,
+    leads_por_busca: Number(document.getElementById('cfg-leads').value) || 10,
+  };
+  const { error } = await sb.from('perfis').upsert(corpo);
+  const msg = document.getElementById('cfg-msg');
+  msg.textContent = error ? error.message : 'Salvo ✓';
+  msg.className = error ? 'msg erro' : 'msg ok';
+}
+
+async function salvarGithub(){
+  const { data: { user } } = await sb.auth.getUser();
+  const token = document.getElementById('cfg-gh-token').value;
+  const corpo = { user_id: user.id, github_usuario: document.getElementById('cfg-gh-usuario').value };
+  if(token) corpo.github_token = token;
+  const { error } = await sb.from('perfis').upsert(corpo);
+  const msg = document.getElementById('gh-msg');
+  msg.textContent = error ? error.message : 'Conexão salva ✓';
+  msg.className = error ? 'msg erro' : 'msg ok';
+  if(!error) document.getElementById('cfg-gh-token').value = '';
+}
+
+async function carregarLeads(){
+  const { data, error } = await sb.from('leads').select('*').order('atualizado_em', {ascending:false});
+  const leads = data || [];
+  const contagem = {};
+  leads.forEach(l => contagem[l.status] = (contagem[l.status]||0) + 1);
+  document.getElementById('funil').innerHTML = Object.keys(STATUS_LABEL).map(s =>
+    `<div><b>${contagem[s]||0}</b><br><span style="color:var(--muted)">${STATUS_LABEL[s]}</span></div>`
+  ).join('');
+
+  const tbody = leads.length ? leads.map(l => `
+    <tr>
+      <td>${l.nome || l.slug}</td>
+      <td>${l.nicho || ''}</td>
+      <td>${l.cidade || ''}</td>
+      <td><span class="badge b-${l.status}">${STATUS_LABEL[l.status] || l.status}</span></td>
+      <td>${l.url_nova ? `<a href="${l.url_nova}" target="_blank">abrir ↗</a>` : ''}</td>
+      <td>${l.valor ? 'R$ '+l.valor : ''}</td>
+    </tr>`).join('') : '';
+
+  document.getElementById('tabela-leads').innerHTML = leads.length ? `
+    <table>
+      <thead><tr><th>Cliente</th><th>Nicho</th><th>Cidade</th><th>Status</th><th>Site</th><th>Valor</th></tr></thead>
+      <tbody>${tbody}</tbody>
+    </table>` : '<div class="vazio">Nenhum lead ainda — rode /prospectar no Claude Code.</div>';
+}
+
+// Se já tiver sessão salva no navegador, entra direto
+sb.auth.getSession().then(({ data: { session } }) => { if(session) iniciarApp(); });
+</script>
+</body>
+</html>

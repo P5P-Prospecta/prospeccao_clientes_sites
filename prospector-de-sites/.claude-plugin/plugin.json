@@ -1,0 +1,16 @@
+{
+  "name": "prospector-de-sites",
+  "version": "3.0.0",
+  "description": "COMECE PELO /setup (2 min, uma vez só). Prospecção semi-automática de clientes: encontra negócios bem avaliados com sites ruins no Google Maps, redesenha as páginas com estética premium, publica gratuitamente no GitHub Pages (com página-capa antes/depois e HTTPS automático) e envia proposta anti-spam por e-mail via Gmail, com follow-up automático. Leads e CRM completo (kanban, contratos, financeiro) num painel web com login, banco Supabase compartilhado da turma.",
+  "author": {
+    "name": "Helio Arreche"
+  },
+  "keywords": [
+    "prospeccao",
+    "landing-page",
+    "redesign",
+    "github-pages",
+    "google-maps",
+    "gmail"
+  ]
+}
