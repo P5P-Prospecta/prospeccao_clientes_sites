@@ -12,7 +12,7 @@ Verifique respostas às propostas enviadas e atualize o pipeline.
 3. Classifique:
    - **Respondeu**: existe mensagem DO lead na thread → atualize o banco (`status='respondeu'`, resumo curto da resposta em `obs`, ex.: "Respondeu 09/07: gostou, pediu valores").
    - **Sem resposta**: mantenha `proposta` (o dashboard cuida do alerta de follow-up).
-4. Atualize com `upsert-lead` (skill `supabase-sync`): `status: "respondeu"` e regenere a planilha do Google se houver mudanças.
+4. Atualize com `upsert-lead` (skill `supabase-sync`): `status: "respondeu"`.
 5. Resuma para o usuário: quem respondeu (com a essência de cada resposta), quem segue sem resposta e há quantos dias, e sugira as ações (responder o cliente, follow-up dos parados).
 
 ## Automação (sugerir na primeira execução)

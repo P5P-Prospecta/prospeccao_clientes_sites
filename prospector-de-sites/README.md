@@ -5,7 +5,7 @@ Prospecção semi-automática de clientes com sites ruins: acha, redesenha, publ
 ## O ciclo
 
 1. `/setup` — roda uma vez: assinatura, nichos padrão, conexão com o GitHub (com teste de publicação).
-2. `/prospectar [nicho] [cidade]` — busca no Google Maps negócios nota ≥ 4.7 com site fraco e gera `leads.md` com e-mail, motivo e ranking (padrão: 10 leads).
+2. `/prospectar [nicho] [cidade]` — busca no Google Maps negócios nota ≥ 4.7 com site fraco e grava direto no Supabase, com e-mail, motivo e ranking (padrão: 10 leads, teto de 25 estabelecimentos avaliados por rodada).
 3. `/redesenhar` — recria as páginas dos 5+ melhores leads com estética premium, mantendo o conteúdo, logo e paleta reais do cliente.
 4. `/editor [cliente]` — gera versão editável no navegador (textos e imagens) com exportação da página final.
 5. `/publicar [cliente|todos]` — sobe no GitHub Pages em `[usuario].github.io/[slug]/`, gera a página-capa de apresentação (antes/depois personalizado, `proposta.html`) — HTTPS já vem automático.
@@ -31,7 +31,7 @@ O plugin grava tudo num banco Supabase compartilhado da turma — cada aluno só
 
 ## Onde ficam os dados
 
-Tudo na pasta conectada: `prospector-config.json` (preferências e credenciais — o token do GitHub fica em texto no seu computador), `leads.md` (pipeline) e `sites/[slug]/` (páginas criadas).
+Tudo em dois lugares: `prospector-config.json` na pasta conectada (login do Supabase, mais arquivos temporários de trabalho) e o banco Supabase (leads, perfil, GitHub) — visível também no painel web.
 
 ## Como atualizar
 

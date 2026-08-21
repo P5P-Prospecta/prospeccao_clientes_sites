@@ -8,7 +8,7 @@ Publique páginas no GitHub Pages seguindo a skill `deploy-github-pages`.
 ## Passos
 
 1. Rode `get-perfil` (skill `supabase-sync`). Se `github_usuario` ou `github_token` não estiverem preenchidos, rode `/setup` primeiro — não prossiga sem eles.
-2. Determine o que publicar: `$ARGUMENTS` (um cliente ou "todos"), ou liste as páginas com status `redesenhado` em `leads.md` e pergunte.
+2. Determine o que publicar: `$ARGUMENTS` (um cliente ou "todos"), ou rode `list-leads redesenhado` (skill `supabase-sync`) e pergunte.
 3. **Gere a página-capa de cada cliente**: preencha `references/capa-proposta-template.html` (skill `proposta-email`) com os dados do lead + assinatura do config e salve como `sites/[slug]/proposta.html`. É ela que vai no e-mail de proposta.
 4. **Publique seguindo a skill `deploy-github-pages`**: antes de rodar o script, grave `github_usuario`/`github_token`/`github_privado` do perfil (obtidos no passo 1) no bloco `github` de `prospector-config.json` (é só um cache local temporário pro script ler — a fonte da verdade continua sendo o Supabase). Depois, para cada cliente:
    ```

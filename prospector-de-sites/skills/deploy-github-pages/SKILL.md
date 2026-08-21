@@ -41,7 +41,7 @@ Se o cliente já tem domínio e quer usar no site novo: crie um arquivo `CNAME` 
 
 1. O GitHub Pages pode levar até ~1 minuto para o site ficar no ar na primeira publicação de um repositório novo (builds seguintes são quase instantâneos). Se a URL ainda não responder, aguarde e teste de novo antes de reportar erro.
 2. HTTPS é automático e obrigatório no GitHub Pages — nunca há link `http://` a se preocupar aqui.
-3. Atualize `leads.md` e o dashboard com status `publicado` e a URL.
+3. Atualize com `upsert-lead` (skill `supabase-sync`): `status: "publicado"` e `url_nova`.
 
 ## Teste de conexão do /setup
 

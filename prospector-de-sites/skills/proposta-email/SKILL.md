@@ -52,4 +52,4 @@ O link do e-mail leva à página-capa gerada no `/publicar` (template em `refere
 
 ## Depois do envio
 
-Registrar no banco/`leads.md` (status + data) e no dashboard. As respostas são verificadas pelo comando `/respostas` (Gmail via conector) — sugira ao usuário agendar a verificação diária. Follow-up pelo `/followup` após 3+ dias úteis sem resposta (1 único follow-up por lead: curto, gentil, "conseguiu ver a página?").
+Registrar via `upsert-lead` (skill `supabase-sync`): status + `data_proposta`. As respostas são verificadas pelo comando `/respostas` — sugira ao usuário agendar a verificação diária. Follow-up pelo `/followup` após 3+ dias úteis sem resposta (1 único follow-up por lead: curto, gentil, "conseguiu ver a página?").

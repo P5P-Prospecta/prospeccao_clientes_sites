@@ -15,8 +15,8 @@ Encontrar o cliente ouro: negócio que JÁ fatura bem (nota alta, muitas avalia�
    - **Filtro 1 — potencial financeiro**: nota ≥ 4.7 E avaliações ≥ 40. Reprovou → próximo.
    - **Filtro 2 — TEM site**: o lead PRECISA ter um site ativo e acessível — a oferta é "uma versão muito melhor do SEU site", e o conteúdo/fotos vêm de lá. Sem site, site fora do ar ou "site" que é só diretório de terceiros/linktree → descartar (registrar o motivo) e seguir.
    - **Filtro 3 — site ruim**: abrir o site em nova aba e avaliar pelos critérios abaixo. Site bom → descartar. Site ativo porém ruim → candidato (falta só o e-mail).
-3. Parar ao atingir a meta de leads qualificados (config, padrão 10) ou após avaliar 25 estabelecimentos.
-4. Pular estabelecimentos que já estão em `leads.md` (avaliados em buscas anteriores).
+3. **PARE ao atingir 25 estabelecimentos avaliados — teto rígido, não sugestão.** Também pare antes disso se bater a meta de leads qualificados (config, padrão 10), o que vier primeiro. Ao chegar no 25º estabelecimento avaliado, encerre a busca imediatamente e entregue o que tiver, mesmo que a meta de leads não tenha sido atingida — não amplie a busca, não troque de sub-nicho, não continue "só mais um pouco" sem antes voltar e perguntar ao usuário. Trocar de nicho no meio da busca reinicia a contagem e exige confirmação explícita do usuário primeiro.
+4. Pular estabelecimentos que já estão no Supabase (rode `list-leads` no início e confira pelo nome/slug — avaliados em buscas anteriores).
 
 ## Critérios de site ruim (guardar o motivo específico)
 
@@ -39,17 +39,13 @@ Nome, nota, nº de avaliações, telefone, WhatsApp, e-mail, URL do site, motivo
 
 **E-MAIL É OBRIGATÓRIO.** A proposta vai por e-mail — lead sem e-mail público não fecha o ciclo. Procure nesta ordem: site (rodapé e página de contato), links `mailto:`, home do site da clínica onde atende, busca no Google por "[nome] + email/contato". Se NÃO encontrar e-mail: **descarte o lead, registre na lista de descartados (com o contato que existir, ex. WhatsApp/Instagram) e continue buscando o próximo** até bater a meta. Atenção: "site" que aponta para diretório de terceiros (localtreino, acheioprofissional etc.) não conta como site próprio — descarta pelo Filtro 2.
 
-## Saída — Google Sheets + leads.md local
+## Saída — direto pro Supabase
 
-Destino principal: PLANILHA DO GOOGLE (via conector do Google Drive: `create_file` com CSV em `textContent` e `contentMimeType: text/csv` — converte automaticamente para Sheets). Título `Leads Prospector — [nicho] [cidade]`; incluir qualificados e descartados, ranqueados por potencial (nota alta + site pior). Entregar o link ao usuário.
+Não use conector de Google Drive/Sheets — ele não está disponível no Claude Code. Grave cada lead (qualificado e descartado) via `upsert-lead` (skill `supabase-sync`) assim que for avaliado, não só no final:
 
-Cópia de trabalho local `leads.md` (mesmas colunas) para controle de status, já que o conector do Drive não edita células:
-
-```markdown
-| # | Nome | Nota | Aval. | E-mail | Telefone | Site atual | Motivo | Status | URL nova |
 ```
-
-Status possíveis: `novo`, `redesenhado`, `publicado`, `proposta enviada`. Quando um status mudar (redesenhar/publicar/proposta), regenerar a planilha do Google com os dados acumulados e gravar via `upsert-lead` (skill `supabase-sync`). Nunca sobrescrever leads antigos — apenas acrescentar e atualizar.
+slug, nome, nota, avaliacoes, email, telefone, whatsapp, site_antigo, motivo, status
+```
 
 ## Boas práticas
 

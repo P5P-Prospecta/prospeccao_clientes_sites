@@ -1,13 +1,13 @@
 ---
 description: Redesenha os sites dos leads com estética premium (lote de 5 ou mais)
-argument-hint: "[URLs ou nomes dos leads] — opcional, usa os 5+ melhores de leads.md"
+argument-hint: "[URLs ou nomes dos leads] — opcional, usa os 5+ melhores do Supabase"
 ---
 
 Redesenhe as páginas dos leads seguindo a skill `redesign-premium`. Ela é obrigatória — leia a skill ANTES de escrever qualquer HTML.
 
 ## Seleção dos clientes
 
-1. Leia `prospector-config.json` e `leads.md` na pasta conectada.
+1. Rode `get-perfil` e `list-leads novo` (skill `supabase-sync`).
 2. Se `$ARGUMENTS` trouxer URLs ou nomes, use-os. Senão, selecione os leads com status `novo` mais bem ranqueados — **mínimo de 5 clientes por lote** (se houver menos de 5 leads novos, use todos e avise que rodar `/prospectar` de novo aumenta o lote).
 3. Confirme a lista com o usuário antes de começar.
 
