@@ -190,7 +190,7 @@
   </main>
 </div>
 
-<div id="modal-fundo" class="modal-fundo hidden">
+<div id="modal-fundo" class="modal-fundo hidden" onclick="if(event.target===this)fecharModal()">
   <div class="modal">
     <button class="fechar-modal" onclick="fecharModal()">×</button>
     <h2>Editar cliente</h2>
@@ -469,6 +469,7 @@ function abrirModal(slug){
   document.getElementById('modal-fundo').classList.remove('hidden');
 }
 function fecharModal(){ document.getElementById('modal-fundo').classList.add('hidden'); }
+document.addEventListener('keydown', ev => { if(ev.key === 'Escape') fecharModal(); });
 
 async function salvarEdicao(){
   const { data: { user } } = await sb.auth.getUser();
