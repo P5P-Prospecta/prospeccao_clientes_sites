@@ -35,4 +35,4 @@ Tudo em dois lugares: `prospector-config.json` na pasta conectada (login do Supa
 
 ## Como atualizar
 
-No chat: `/plugin marketplace update arrecheneto-plugins` e reinicie o app (versão certa: 3.0.0). Atualiza sozinho a partir daí.
+No chat: `/plugin marketplace update p5p-prospecta` e reinicie o app (versão certa: 3.0.0). Atualiza sozinho a partir daí.

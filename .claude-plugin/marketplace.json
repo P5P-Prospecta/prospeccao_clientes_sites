@@ -1,10 +1,10 @@
 {
-  "name": "arrecheneto-plugins",
+  "name": "p5p-prospecta",
   "owner": {
-    "name": "Helio Arreche"
+    "name": "P5P Prospecta"
   },
   "metadata": {
-    "description": "Plugins de IA para negócios do Helio Arreche",
+    "description": "Plugins de IA do Método P5P Prospecta",
     "version": "3.0.0",
     "autoUpdate": true
   },
@@ -14,7 +14,7 @@
       "source": "./prospector-de-sites",
       "description": "Prospecção semi-automática com CRM completo: encontra negócios bem avaliados com sites ruins no Google Maps, redesenha as páginas com estética premium (editor visual + comparador antes/depois), publica gratuitamente no GitHub Pages sozinho (HTTPS automático), envia proposta anti-spam com página-capa personalizada via Gmail, faz follow-up, lê as respostas e gera contrato em Word travado — tudo administrado num painel web com login e banco Supabase compartilhado da turma. Comece pelo /setup.",
       "author": {
-        "name": "Helio Arreche"
+        "name": "P5P Prospecta"
       },
       "keywords": [
         "prospeccao",

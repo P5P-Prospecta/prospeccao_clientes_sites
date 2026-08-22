@@ -29,7 +29,7 @@ Kanban com drag & drop, funil, clientes, comparador, follow-ups, contratos e pai
 **No Claude Code:**
 ```
 /plugin marketplace add P5P-Prospecta/prospeccao_clientes_sites
-/plugin install prospector-de-sites@arrecheneto-plugins
+/plugin install prospector-de-sites@p5p-prospecta
 ```
 Depois rode `/setup` e siga o manual (link abaixo).
 
@@ -37,7 +37,7 @@ Depois rode `/setup` e siga o manual (link abaixo).
 
 Re-adicionar o link NÃO atualiza (fica em cache). Faça:
 ```
-/plugin marketplace update arrecheneto-plugins
+/plugin marketplace update p5p-prospecta
 ```
 e reinicie o app — a versão certa é a **3.0.0** (confira em Gerenciar plugins). Se não subir: desinstale o plugin → remova o marketplace → feche o app → adicione e instale de novo. A atualização é automática (autoUpdate ativado).
 

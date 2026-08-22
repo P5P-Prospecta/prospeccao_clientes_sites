@@ -22,10 +22,10 @@ Hoje mora em `P5P-Prospecta/prospeccao_clientes_sites`, **público** (pra qualqu
 
 ```
 /plugin marketplace add P5P-Prospecta/prospeccao_clientes_sites
-/plugin install prospector-de-sites@arrecheneto-plugins
+/plugin install prospector-de-sites@p5p-prospecta
 ```
 
-(o nome depois do `@` é o que está em `.claude-plugin/marketplace.json`, campo `name` — hoje ainda `arrecheneto-plugins`, mesmo com o repo já em `P5P-Prospecta`; renomeie os dois campos junto se quiser alinhar a marca.)
+(o nome depois do `@` é o que está em `.claude-plugin/marketplace.json`, campo `name` — `p5p-prospecta`, alinhado com o repo `P5P-Prospecta`.)
 
 ## 4. Testando a volta toda
 
