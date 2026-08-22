@@ -17,7 +17,7 @@ Verifique respostas às propostas enviadas e atualize o pipeline.
 
 ## Automação (sugerir na primeira execução)
 
-Ofereça deixar isso automático com uma tarefa agendada do Cowork: "quer que eu verifique as respostas todo dia de manhã e deixe o dashboard atualizado?" — se aceitar, crie a tarefa agendada diária que executa este comando.
+Ofereça deixar isso automático com uma tarefa agendada do Claude Code: "quer que eu verifique as respostas todo dia de manhã e deixe o painel atualizado?" — se aceitar, crie a tarefa agendada diária que executa este comando.
 
 ## Regras
 

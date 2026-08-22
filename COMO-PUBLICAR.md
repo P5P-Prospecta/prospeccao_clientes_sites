@@ -18,14 +18,14 @@ Depois de publicado, esse é o link que você manda pro aluno usar no navegador 
 
 ## 3. Plugin (pasta `prospector-de-sites/`)
 
-Suba essa pasta pra um repositório GitHub seu — pode ser **privado** (assim só quem você autorizar como colaborador consegue instalar). O aluno instala com:
+Hoje mora em `P5P-Prospecta/prospeccao_clientes_sites`, **público** (pra qualquer aluno instalar sozinho, sem você precisar adicionar cada um como colaborador). O aluno instala com:
 
 ```
-/plugin marketplace add seu-usuario/nome-do-repositorio
+/plugin marketplace add P5P-Prospecta/prospeccao_clientes_sites
 /plugin install prospector-de-sites@arrecheneto-plugins
 ```
 
-(o nome depois do `@` é o que está em `.claude-plugin/marketplace.json`, campo `name` — hoje `arrecheneto-plugins`; troque se quiser renomear.)
+(o nome depois do `@` é o que está em `.claude-plugin/marketplace.json`, campo `name` — hoje ainda `arrecheneto-plugins`, mesmo com o repo já em `P5P-Prospecta`; renomeie os dois campos junto se quiser alinhar a marca.)
 
 ## 4. Testando a volta toda
 

@@ -1,4 +1,4 @@
-# Prospector de Sites — v2.2.0
+# Prospector de Sites — v3.0.0
 
 Prospecção semi-automática de clientes com sites ruins: acha, redesenha, publica e oferta.
 
@@ -16,7 +16,7 @@ Prospecção semi-automática de clientes com sites ruins: acha, redesenha, publ
 
 ## Manual e publicação automática
 
-O pacote inclui `manual.html` — o manual completo do usuário, copiado pra pasta no `/setup` e **atualizado a cada versão do plugin**. A publicação é gratuita e automática via GitHub Pages: token gerado uma vez em github.com/settings/tokens e preenchido no `prospector-config.json` (ou pelo dashboard) — o `/publicar` faz o resto sozinho, direto pela API do GitHub, sem instalar nada no computador.
+O pacote inclui `manual.html` — o manual completo do aluno (linguagem simples, sem jargão técnico), apresentado no `/setup` e **atualizado a cada versão do plugin**. A publicação é gratuita e automática via GitHub Pages: token gerado uma vez em github.com/settings/tokens e salvo no perfil do Supabase (ou pelo painel web) — o `/publicar` faz o resto sozinho, direto pela API do GitHub, sem instalar nada no computador.
 
 ## Dashboard local
 
@@ -26,7 +26,7 @@ O plugin grava tudo num banco Supabase compartilhado da turma — cada aluno só
 
 - Extensão Claude in Chrome conectada (prospecção no Maps)
 - Conector do Gmail (rascunhos de proposta)
-- Pasta conectada no Cowork (armazena config, leads e sites)
+- Pasta conectada no Claude Code (armazena config e arquivos temporários de trabalho)
 - Conta gratuita no GitHub (hospedagem via GitHub Pages)
 
 ## Onde ficam os dados
@@ -35,4 +35,4 @@ Tudo em dois lugares: `prospector-config.json` na pasta conectada (login do Supa
 
 ## Como atualizar
 
-No chat: `/plugin marketplace update arrecheneto-plugins` e reinicie o app (versão certa: 2.2.0). Da 2.1.0 em diante, atualiza sozinho.
+No chat: `/plugin marketplace update arrecheneto-plugins` e reinicie o app (versão certa: 3.0.0). Atualiza sozinho a partir daí.
