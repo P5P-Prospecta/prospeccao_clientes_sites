@@ -51,6 +51,17 @@ O conector do Google Drive **não está disponível no Claude Code** — a instr
 - **READMEs (`README.md` raiz, `prospector-de-sites/README.md`, `COMO-PUBLICAR.md`) corrigidos** pros mesmos fatos: repo novo, comando de instalação certo, versão 3.0.0, "Claude Cowork" → "Claude Code", tabela de comandos sem menção a Google Sheets. Atribuição original ("Feito por Helio Arreche" + redes) **mantida de propósito** no README raiz — não foi pedido pra mudar isso, só os fatos técnicos quebrados.
 - **Resolvido em seguida (mesmo dia)**: `.claude-plugin/marketplace.json` (`name`, `owner.name`) e `prospector-de-sites/.claude-plugin/plugin.json` (`author.name`) renomeados de `arrecheneto-plugins`/"Helio Arreche" pra `p5p-prospecta`/"P5P Prospecta" (plugin.json: "P5P Prospecta (Fábrica Digital)"). Comando de instalação atualizado em todos os arquivos: aqui, README raiz, `prospector-de-sites/README.md`, `COMO-PUBLICAR.md` e `manual.html`. A atribuição "Feito por Helio Arreche" no rodapé do README raiz (redes sociais) foi **deliberadamente mantida** — não fazia parte do pedido, só os campos técnicos de identidade do plugin/marketplace.
 
+## ⚠️ Gotcha — `/plugin` é comando de chat do Claude Code, não dá pra rodar via Bash
+
+Quando o marketplace/plugin é renomeado (como em 2026-08-21, `arrecheneto-plugins` → `p5p-prospecta`), quem já tinha adicionado o marketplace ANTES com o nome antigo continua com ele registrado pelo nome antigo localmente — trocar só o `name` no `marketplace.json` do repo não atualiza isso sozinho. Pra re-registrar com o nome novo, o usuário precisa digitar (não colar em bloco, uma linha de cada vez, na própria janela do Claude Code dele — eu não consigo executar `/plugin` por Bash, é um comando de chat interceptado pela própria CLI, não um comando de shell):
+```
+/plugin uninstall prospector-de-sites@arrecheneto-plugins
+/plugin marketplace remove arrecheneto-plugins
+/plugin marketplace add P5P-Prospecta/prospeccao_clientes_sites
+/plugin install prospector-de-sites@p5p-prospecta
+```
+(pula a 1ª linha se nunca chegou a instalar o plugin em si, só tinha adicionado o marketplace.) **Pendente**: usuário ainda não confirmou o resultado desse teste na própria instalação dele.
+
 ## Estado dos dados de teste (conta `das.automacao.ia@gmail.com`)
 
 Perfil do aluno de teste: nichos padrão `nutricionistas`, `psicologos`, `advogados`, `psiquiatras`, `leads_por_busca: 10`, `cidade` ainda **não definida** no perfil (perguntar toda vez que faltar).
