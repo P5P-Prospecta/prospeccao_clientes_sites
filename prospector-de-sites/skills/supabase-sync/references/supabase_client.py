@@ -10,7 +10,7 @@ Uso:
   python3 supabase_client.py set-perfil CAMINHO/prospector-config.json '{"nome":"..."}'
   python3 supabase_client.py list-leads CAMINHO/prospector-config.json [status]
   python3 supabase_client.py upsert-lead CAMINHO/prospector-config.json '{"slug":"...", ...}'
-  python3 supabase_client.py proximos CAMINHO/prospector-config.json
+  python3 supabase_client.py proximos CAMINHO/prospector-config.json [--app codex]
 
 No Windows, se "python3" não existir, use "python" (ou "py -3").
 
@@ -238,10 +238,11 @@ def proximo_passo(lead, github_ok=True):
     return "Descartado", None, False, 0
 
 
-def texto_proximos(leads, github_ok=True):
+def texto_proximos(leads, github_ok=True, app="claude"):
+    p = "$" if app == "codex" else "/"
     if not leads:
         return ("Nenhum cliente ainda.\n"
-                "Comece por /prospectar (se ainda não fez a configuração, rode /setup antes).")
+                f"Comece por {p}prospectar (se ainda não fez a configuração, rode {p}setup antes).")
     ativos, pagos, descartados = [], 0, 0
     for lead in leads:
         est = _estacao(lead)
@@ -268,26 +269,28 @@ def texto_proximos(leads, github_ok=True):
             linhas.append(cab)
             linhas.append(f"   {texto}")
             if cmd:
+                if p == "$" and cmd.startswith("/"):
+                    cmd = "$" + cmd[1:]
                 linhas.append(f"   Comando: {cmd}")
 
     bloco("PARADOS (faça primeiro)", parados)
     bloco("ANDANDO (do mais perto de fechar para o começo)", andando)
     if not ativos:
         linhas.append("")
-        linhas.append("Nenhum cliente ativo agora. Rode /prospectar para achar mais.")
+        linhas.append(f"Nenhum cliente ativo agora. Rode {p}prospectar para achar mais.")
     linhas.append("")
     linhas.append(f"Pagos: {pagos} · Descartados: {descartados}")
     return "\n".join(linhas)
 
 
-def proximos(caminho_config):
+def proximos(caminho_config, app="claude"):
     token, user_id = _access_token(caminho_config)
     _, leads = _chamada("GET", f"/rest/v1/leads?user_id=eq.{user_id}&select=*", token=token)
     _, perfis = _chamada("GET", f"/rest/v1/perfis?user_id=eq.{user_id}&select=github_usuario,github_token",
                          token=token)
     perfil = perfis[0] if perfis else {}
     github_ok = bool(perfil.get("github_usuario") and perfil.get("github_token"))
-    print(texto_proximos(leads, github_ok))
+    print(texto_proximos(leads, github_ok, app))
 
 
 def main():
@@ -308,7 +311,9 @@ def main():
     elif comando == "upsert-lead":
         upsert_lead(caminho_config, resto[0])
     elif comando == "proximos":
-        proximos(caminho_config)
+        i = resto.index("--app") if "--app" in resto else -1
+        app = resto[i + 1].lower() if 0 <= i < len(resto) - 1 else "claude"
+        proximos(caminho_config, app)
     else:
         print(f"[ERRO] Comando desconhecido: {comando}")
         print(__doc__)

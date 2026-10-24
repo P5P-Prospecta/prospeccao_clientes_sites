@@ -1,15 +1,17 @@
 ---
 name: prospeccao-maps
-description: Esta skill deve ser usada ao prospectar clientes no Google Maps — buscar negócios bem avaliados com sites ruins, qualificar leads, avaliar qualidade de sites de terceiros e montar a planilha de leads. Acione quando o usuário disser "prospectar", "buscar clientes", "achar leads", "clientes com site ruim" ou rodar /prospectar.
+description: Esta skill deve ser usada ao prospectar clientes no Google Maps — buscar negócios bem avaliados com sites ruins, qualificar leads, avaliar qualidade de sites de terceiros e montar a planilha de leads. Acione quando o usuário disser "prospectar", "buscar clientes", "achar leads", "clientes com site ruim" ou rodar /prospectar (Claude) ou $prospectar (Codex).
 ---
 
 # Prospecção no Google Maps
 
 Encontrar o cliente ouro: negócio que JÁ fatura bem (nota alta, muitas avaliações) mas perde clientes por causa de um site fraco. Não se cria demanda — conserta-se onde o dinheiro está escapando.
 
-## Fluxo (via Claude in Chrome)
+## Fluxo (navegador do próprio app)
 
-1. Abrir `https://www.google.com/maps` e buscar `[nicho] em [cidade]`.
+Use o navegador do app, como manda a skill `prospecta-guia`: no Claude, o navegador embutido do app; no Codex, `@Browser`. Extensão de navegador só se o app não tiver navegador próprio.
+
+1. Abrir `https://www.google.com/maps` e buscar `[nicho] em [cidade]`. **Pular os anúncios** (resultados marcados "Patrocinado"): não contam como estabelecimento avaliado.
 2. Percorrer os resultados um a um, em ordem. Para cada estabelecimento:
    - Abrir o perfil e ler nota, nº de avaliações e link do site.
    - **Filtro 1 — potencial financeiro**: nota ≥ 4.7 E avaliações ≥ 40. Reprovou → próximo.
@@ -41,7 +43,7 @@ Nome, nota, nº de avaliações, telefone, WhatsApp, e-mail, URL do site, motivo
 
 ## Saída — direto pro Supabase
 
-Não use conector de Google Drive/Sheets — ele não está disponível no Claude Code. Grave cada lead (qualificado e descartado) via `upsert-lead` (skill `supabase-sync`) assim que for avaliado, não só no final:
+Não use planilha do Google. Grave cada lead (qualificado e descartado) via `upsert-lead` (skill `supabase-sync`) assim que for avaliado, não só no final:
 
 ```
 slug, nome, nota, avaliacoes, email, telefone, whatsapp, site_antigo, motivo, status

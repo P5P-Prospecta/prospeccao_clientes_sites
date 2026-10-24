@@ -1,26 +1,26 @@
 ---
 name: deploy-github-pages
-description: Esta skill deve ser usada ao publicar páginas via GitHub Pages — cria (ou reaproveita) um repositório por cliente, sobe os arquivos pela API do GitHub, ativa o GitHub Pages e devolve a URL pública. Acione quando o usuário disser "publicar", "subir o site", "colocar no ar", "deploy", "github", "github pages" ou rodar /publicar ou o teste de conexão do /setup.
+description: Esta skill deve ser usada ao publicar páginas via GitHub Pages — cria (ou reaproveita) um repositório por cliente, sobe os arquivos pela API do GitHub, ativa o GitHub Pages e devolve a URL pública. Acione quando o usuário disser "publicar", "subir o site", "colocar no ar", "deploy", "github", "github pages" ou rodar publicar (/publicar no Claude, $publicar no Codex) ou o teste de conexão do setup.
 ---
 
 # Deploy via GitHub Pages (gratuito)
 
 Publicar cada cliente em `https://[usuario-github].github.io/[slug]/` (ou `https://[dominio-custom]/` se o cliente tiver domínio próprio configurado), sem depender de hospedagem paga nem de nenhum programa instalado no computador do usuário.
 
-Diferente da HostGator, a API do GitHub (`api.github.com`) é acessível diretamente de onde o Claude roda — então a publicação é feita **na hora, no próprio comando**, sem fila, sem publicador local, sem espera de ~90s.
+Diferente da HostGator, a API do GitHub (`api.github.com`) é acessível diretamente de onde o app (Claude ou Codex) roda — então a publicação é feita **na hora, no próprio comando**, sem fila, sem publicador local, sem espera de ~90s.
 
 ## Credenciais
 
 Tudo vem de `prospector-config.json` (bloco `github`): `usuario` (login/organização do GitHub), `token` (Personal Access Token com escopo `repo`), `privado` (true/false — repositórios privados também publicam Pages normalmente em contas Pro/Team/Enterprise; em conta free, Pages só funciona com repositório público, então o padrão é `false`).
 
-**O token vive SÓ nesse arquivo, no computador do usuário — nunca é digitado no chat, nunca é exibido em nenhuma saída, log ou comando mostrado ao usuário.** Se o token estiver vazio, oriente o usuário a gerar um em https://github.com/settings/tokens (Personal access tokens → Tokens (classic) → escopo `repo`) e colar no `prospector-config.json` diretamente (nunca pelo chat).
+**O token vive SÓ nesse arquivo, no computador do usuário — nunca é digitado no chat, nunca é exibido em nenhuma saída, log ou comando mostrado ao usuário.** Se o token estiver vazio, oriente o aluno a gerar um em https://github.com/settings/tokens (Tokens (classic), escopo `repo`) e colar no painel, em Configurações > GitHub (nunca pelo chat). Depois rode `get-perfil` e grave o bloco `github` do `prospector-config.json`.
 
 ## Publicação (método único — direto pela API, sem passos alternativos)
 
-Use o script `references/publicar-github.py` (Python padrão, sem dependências externas — roda igual em Windows/Mac/Linux):
+Use o script `references/publicar-github.py` (Python padrão, sem dependências externas; roda igual em Windows, Mac e Linux; no Windows chame com `python`, no Mac com `python3`):
 
 ```bash
-python3 references/publicar-github.py CAMINHO/prospector-config.json [slug] \
+python <skills>/deploy-github-pages/references/publicar-github.py CAMINHO/prospector-config.json [slug] \
   "CAMINHO/sites/[slug]/[slug].html:index.html" \
   "CAMINHO/sites/[slug]/proposta.html:proposta.html"
 ```

@@ -63,7 +63,7 @@ run(p, '%s, %s nº %s, com endereço em %s, %s.' % (d['NOME_PRESTADOR'], d['CPF_
 par(doc, 'As partes acima identificadas celebram o presente contrato de prestação de serviços, que se regerá pelas cláusulas seguintes.')
 
 def clausula(n, titulo, texto):
-    par(doc, 'Cláusula %sª — %s' % (n, titulo), bold=True, antes=12)
+    par(doc, 'Cláusula %sª: %s' % (n, titulo), bold=True, antes=12)
     par(doc, texto)
 
 clausula(1, 'Do objeto', 'O presente contrato tem por objeto a criação de nova versão da página na internet do CONTRATANTE (%s), incluindo: redesign completo do layout com manutenção da identidade visual (logotipo, cores e imagens fornecidas), redação aprimorada do conteúdo existente, adaptação para dispositivos móveis e publicação da página no endereço %s.' % (d['URL_SITE_ANTIGO'], d['URL_PUBLICADA']))
@@ -83,10 +83,10 @@ editavel(p, ' [data] '); run(p, '.')
 
 par(doc, '', antes=24)
 p = par(doc, antes=18); run(p, '__________________________________________'); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-p = par(doc, antes=0); run(p, d['NOME_CLIENTE'] + ' — Contratante  ', bold=True); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+p = par(doc, antes=0); run(p, d['NOME_CLIENTE'] + ', Contratante  ', bold=True); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
 editavel(p, ' [assine aqui] ')
 p = par(doc, antes=18); run(p, '__________________________________________'); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-p = par(doc, antes=0, center=True); run(p, d['NOME_PRESTADOR'] + ' — Contratado(a)', bold=True)
+p = par(doc, antes=0, center=True); run(p, d['NOME_PRESTADOR'] + ', Contratado(a)', bold=True)
 
 par(doc, 'Este documento é uma minuta base gerada automaticamente. Recomenda-se a revisão por profissional jurídico antes da assinatura. Gerado pelo plugin Prospector de Sites.', size=8, antes=20)
 

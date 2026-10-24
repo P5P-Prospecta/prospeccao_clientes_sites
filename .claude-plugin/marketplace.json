@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "Plugins de IA do Método P5P Prospecta",
-    "version": "3.1.0",
+    "version": "3.2.0",
     "autoUpdate": true
   },
   "plugins": [
     {
       "name": "prospector-de-sites",
       "source": "./prospector-de-sites",
-      "description": "Prospecção semi-automática com CRM completo: encontra negócios bem avaliados com sites ruins no Google Maps, redesenha as páginas com estética premium (editor visual + comparador antes/depois), publica gratuitamente no GitHub Pages sozinho (HTTPS automático), envia proposta anti-spam com página-capa personalizada via Gmail, faz follow-up, lê as respostas e gera contrato em Word travado — tudo administrado num painel web com login e banco Supabase compartilhado da turma. Comece pelo /setup.",
+      "description": "P5P Prospecta para Claude e Codex. Comece pelo setup (uma vez). Acha no Google Maps negócios bem avaliados com site ruim, refaz a página com o conteúdo real, publica de graça no GitHub Pages, escreve a proposta sem preço (rascunho no Gmail ou link \"Abrir no Gmail\"), confere respostas, faz o follow-up e gera o contrato. Usa o navegador do próprio app. Tudo aparece no painel web com login (linha de produção, funil, antes e depois, dinheiro).",
       "author": {
         "name": "P5P Prospecta"
       },

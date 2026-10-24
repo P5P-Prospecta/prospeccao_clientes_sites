@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual do aluno · P5P Prospecta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=JetBrains+Mono:wght@500&family=Sora:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{--display:"Chakra Petch",system-ui,sans-serif;--sans:"Sora",system-ui,sans-serif;--mono:"JetBrains Mono",Consolas,monospace;--ink:#0A0A0A;--ink2:#111111;--ink3:#151515;--line:#2A2A2A;--line2:#3A3A3A;--fg:#F5F5F5;--soft:#B8B8B8;--note:#8A8A8A;--lime:#CCFF00}
+  *{box-sizing:border-box}
+  html{color-scheme:dark}
+  body{margin:0;background:var(--ink);color:var(--fg);font:400 16px/1.7 var(--sans)}
+  ::selection{background:var(--lime);color:var(--ink)}
+  .faixa{position:relative;background:var(--lime);color:var(--ink);padding:28px 20px 44px}
+  .faixa::after{content:"";position:absolute;left:0;right:0;bottom:12px;height:10px;background-image:repeating-linear-gradient(90deg,var(--ink) 0 16px,transparent 16px 36px)}
+  .faixa .dentro,.wrap{max-width:780px;margin:0 auto}
+  .marca{font:700 14px/1 var(--display);letter-spacing:.06em;text-transform:uppercase}
+  h1{margin:18px 0 6px;font:700 clamp(30px,6vw,46px)/1.05 var(--display);text-transform:uppercase}
+  .faixa p{margin:0;font-weight:600;color:var(--ink)}
+  .wrap{padding:28px 20px 90px}
+  h2{margin:48px 0 12px;padding-top:24px;border-top:1px solid var(--line);font:700 22px/1.2 var(--display);text-transform:uppercase}
+  h3{margin:22px 0 6px;font-size:18px}
+  p{margin:10px 0}
+  a{color:var(--fg);text-decoration-color:var(--lime);text-underline-offset:3px}
+  code,.cola{font-family:var(--mono)}
+  code{background:var(--ink3);border:1px solid var(--line2);padding:2px 7px;border-radius:6px;font-size:13.5px}
+  .cola{display:block;background:var(--ink2);border:1px solid var(--line2);border-radius:8px;padding:12px 14px;font-size:13.5px;margin:10px 0;overflow-x:auto;white-space:pre-wrap;word-break:break-all}
+  .bloco{background:var(--ink2);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:16px 0}
+  .bloco h3{margin-top:0;display:flex;align-items:center;gap:10px}
+  .n{display:inline-grid;place-content:center;width:28px;height:28px;border-radius:6px;background:var(--lime);color:var(--ink);font:700 14px/1 var(--mono);flex:none}
+  .nota{border:1px solid var(--line2);border-radius:10px;padding:14px 16px;margin:14px 0;color:var(--soft)}
+  .nota b{color:var(--fg)}
+  table{border-collapse:collapse;width:100%;font-size:14.5px;margin:12px 0}
+  th,td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}
+  th{color:var(--soft);font-weight:600;font-size:13px}
+  td code{white-space:nowrap}
+  ul,ol{padding-left:22px}
+  li{margin:6px 0}
+  .indice{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px}
+  .rodape{margin-top:48px;color:var(--note);font-size:13px}
+  @media (max-width:600px){th:nth-child(2),td:nth-child(2){display:none}}
+</style>
+</head>
+<body>
+<header class="faixa">
+  <div class="dentro">
+    <div class="marca">P5P Prospecta · Método P5P</div>
+    <h1>Manual do aluno</h1>
+    <p>Versão 3.2.0. Funciona no app do Claude e no app do Codex.</p>
+  </div>
+</header>
+<div class="wrap">
+  <p>Você não precisa saber programar. Só precisa saber onde clicar e o que digitar. Vá com calma, um passo de cada vez.</p>
+  <nav class="indice">
+    <a href="#oque">1. O que faz</a>
+    <a href="#antes">2. Antes de começar</a>
+    <a href="#primeiro">3. Primeiro dia</a>
+    <a href="#dia">4. Dia a dia</a>
+    <a href="#painel">5. O painel</a>
+    <a href="#erro">6. Travou?</a>
+    <a href="#faq">7. Perguntas</a>
+  </nav>
+
+  <h2 id="oque">1. O que o Prospecta faz</h2>
+  <p>Ele acha para você donos de negócio (clínica, escritório, salão) que têm nota boa no Google mas um site fraco. Refaz o site desse negócio, coloca no ar de graça, escreve um e-mail mostrando o antes e depois e avisa quando a pessoa responde, para você fechar o cliente.</p>
+  <p>Tudo roda numa conversa no app do <b>Claude</b> ou do <b>Codex</b>. Você digita um comando, aperta Enter, e o app faz o trabalho, te perguntando o que precisar. Ele usa o navegador que já vem dentro do próprio app: não precisa de extensão no Chrome.</p>
+  <p>No Claude os comandos começam com barra (<code>/prospectar</code>). No Codex, com cifrão (<code>$prospectar</code>). O resto é igual.</p>
+
+  <h2 id="antes">2. Antes de começar</h2>
+  <ul>
+    <li><b>O app do Claude (aba Code) ou o app do Codex instalado</b> no computador. Isso está nas aulas do Módulo 1.</li>
+    <li><b>Uma conta gratuita no GitHub</b>, onde os sites ficam no ar de graça: <a href="https://github.com/signup" target="_blank">github.com/signup</a>.</li>
+    <li><b>O seu Gmail</b>, de onde saem as propostas. Conectar o Gmail ao app é opcional: se não conectar, o Prospecta entrega um link "Abrir no Gmail" já preenchido e você só clica em Enviar.</li>
+    <li><b>Uma pasta para os clientes</b>, por exemplo <code>Documentos/Clientes</code>, aberta no app (no Claude, na aba Code; no Codex, como projeto).</li>
+  </ul>
+
+  <h2 id="primeiro">3. Seu primeiro dia, passo a passo</h2>
+
+  <div class="bloco">
+    <h3><span class="n">1</span> Crie sua conta no painel</h3>
+    <p>O painel é o site onde você vê todos os seus clientes e o seu dinheiro. Abra <a href="https://prospeccao-clientes-sites.pages.dev/?criar" target="_blank">prospeccao-clientes-sites.pages.dev</a> e crie a conta <b>com o mesmo e-mail da compra do Método P5P</b>. Guarde a senha: você vai usar de novo no passo 3. Esqueceu? O painel tem "Esqueci minha senha".</p>
+  </div>
+
+  <div class="bloco">
+    <h3><span class="n">2</span> Instale o Prospecta (uma vez)</h3>
+    <p>Abra uma conversa no app e cole a mensagem do seu computador. O app pede permissão para rodar o comando: pode permitir.</p>
+    <p><b>Windows:</b></p>
+    <span class="cola">Rode no PowerShell: irm https://raw.githubusercontent.com/P5P-Prospecta/prospeccao_clientes_sites/main/instalar.ps1 | iex</span>
+    <p><b>Mac:</b></p>
+    <span class="cola">Rode no Terminal: curl -fsSL https://raw.githubusercontent.com/P5P-Prospecta/prospeccao_clientes_sites/main/instalar.sh | bash</span>
+    <p>Ele instala no Claude e no Codex de uma vez e confere o Python (no Windows, instala se faltar). Quando terminar, <b>feche e abra o app</b>.</p>
+    <p>Para atualizar o Prospecta no futuro, é só rodar a mesma mensagem de novo.</p>
+  </div>
+
+  <div class="bloco">
+    <h3><span class="n">3</span> Rode o setup e responda as perguntas</h3>
+    <span class="cola">Claude: /setup        Codex: $setup</span>
+    <p>Roda uma vez só. O app faz uma pergunta por vez:</p>
+    <ol>
+      <li>o e-mail e a senha do painel (passo 1);</li>
+      <li>como você quer aparecer nas propostas (nome, uma frase curta e o WhatsApp);</li>
+      <li>que tipo de negócio procurar e em qual cidade;</li>
+      <li>a conexão com o GitHub: o app te mostra como gerar a chave (token) e onde colar. <b>A chave vai no painel</b>, em Configurações, GitHub, nunca na conversa.</li>
+    </ol>
+    <p>No final ele publica uma página de teste e te mostra o link. <b>Se o link abrir, deu tudo certo.</b></p>
+  </div>
+
+  <h2 id="dia">4. Seu dia a dia</h2>
+  <p>Um comando de cada vez, esperando o anterior terminar. No navegador do app, na primeira vez em cada site, ele pode pedir permissão: é normal, pode permitir.</p>
+  <table>
+    <tr><th>Claude</th><th>Codex</th><th>O que faz</th></tr>
+    <tr><td><code>/prospectar</code></td><td><code>$prospectar</code></td><td>Procura no Google Maps negócios com nota boa e site fraco (pula os anúncios) e já coloca cada um no painel.</td></tr>
+    <tr><td><code>/redesenhar</code></td><td><code>$redesenhar</code></td><td>Refaz o site dos melhores, com as fotos e informações reais de cada um. Nada inventado. Usa a skill de páginas do curso (Aula 1.3), se você instalou. Para um cliente especial, peça "caprichado": por exemplo <code>/redesenhar Clínica Vida caprichado</code>.</td></tr>
+    <tr><td><code>/editor</code></td><td><code>$editor</code></td><td>Opcional: abre a página para você trocar texto ou foto sem mexer em código.</td></tr>
+    <tr><td><code>/publicar</code></td><td><code>$publicar</code></td><td>Coloca o site no ar de graça e te devolve o link.</td></tr>
+    <tr><td><code>/proposta</code></td><td><code>$proposta</code></td><td>Escreve o e-mail mostrando o site novo e deixa pronto no seu Gmail (rascunho ou link "Abrir no Gmail").</td></tr>
+    <tr><td><code>/respostas</code></td><td><code>$respostas</code></td><td>Confere quem respondeu e atualiza o painel.</td></tr>
+    <tr><td><code>/followup</code></td><td><code>$followup</code></td><td>Para quem está 3 dias ou mais sem responder: um lembrete gentil, só uma vez por cliente.</td></tr>
+    <tr><td><code>/contrato</code></td><td><code>$contrato</code></td><td>Cliente fechou? Gera o contrato pronto para assinar.</td></tr>
+    <tr><td><code>/proximo</code></td><td><code>$proximo</code></td><td>Mostra o que fazer agora com cada cliente e o comando certo. Use sempre que não souber o próximo passo.</td></tr>
+  </table>
+  <div class="nota"><b>Não sabe o que fazer agora?</b> Rode <code>/proximo</code> (ou <code>$proximo</code>). A mesma lista aparece no painel, na aba Linha de produção.</div>
+
+  <h2 id="painel">5. O painel</h2>
+  <p>Entre em <a href="https://prospeccao-clientes-sites.pages.dev" target="_blank">prospeccao-clientes-sites.pages.dev</a> com o mesmo e-mail e senha. Tudo que os comandos fazem aparece lá sozinho.</p>
+  <ul>
+    <li><b>Linha de produção:</b> cada cliente passando por sete estações (Achado, Refeito, No ar, Proposta, Respondeu, Fechado, Pago). Embaixo de cada um, o próximo passo com o comando pronto e o botão Copiar. Quem está parado aparece primeiro.</li>
+    <li><b>Funil:</b> as mesmas estações em colunas. Arraste o cliente para mudar de estação.</li>
+    <li><b>Antes e depois:</b> o site antigo ao lado da página nova.</li>
+    <li><b>Dinheiro:</b> quem fechou, contrato, pagamento e a manutenção de todo mês.</li>
+    <li><b>Configurações:</b> seus dados, o GitHub e a escolha <b>Claude ou Codex</b> (muda o formato dos comandos copiados).</li>
+  </ul>
+  <p>Fechado e Pago você marca no próprio painel, na ficha do cliente (clique no nome dele).</p>
+
+  <h2 id="erro">6. Travou? Deu erro?</h2>
+  <div class="nota"><b>Regra de ouro:</b> você não precisa entender o erro. Copie a mensagem (ou tire um print), cole na conversa e peça: "deu esse erro, você consegue resolver?". Quase sempre o próprio app resolve.</div>
+  <ol>
+    <li>Copie a mensagem de erro completa.</li>
+    <li>Cole na conversa e peça para resolver.</li>
+    <li>Deixe ele tentar uma ou duas vezes.</li>
+    <li>Só se ele disser que não consegue: fale com o suporte na área de membros do <b>Método P5P</b>.</li>
+  </ol>
+
+  <h2 id="faq">7. Perguntas que todo mundo faz</h2>
+  <h3>Apareceu erro de "python" ou "comando não encontrado"</h3>
+  <p>Rode de novo a mensagem de instalação do passo 2: ela confere e instala o Python. Depois feche e abra o app.</p>
+  <h3>O publicar deu erro de permissão</h3>
+  <p>A chave do GitHub venceu ou está errada. Peça: "minha chave do GitHub parece ter vencido, me ajuda a gerar outra?". A chave nova vai no painel, em Configurações, GitHub.</p>
+  <h3>O app pediu para entrar de novo no setup</h3>
+  <p>Normal depois de muito tempo sem usar. Rode o setup de novo com o mesmo e-mail e senha do painel. Nenhum dado se perde.</p>
+  <h3>Um cliente não tem e-mail, só telefone</h3>
+  <p>O app avisa e entrega a mensagem pronta para mandar pelo WhatsApp.</p>
+  <h3>Posso rodar os comandos fora de ordem?</h3>
+  <p>Pode. Se faltar algo antes, o app avisa e diz o que rodar primeiro.</p>
+  <h3>O que muda com a skill de páginas da Aula 1.3?</h3>
+  <p>O redesenhar passa a seguir as regras de qualidade dela e roda o verificador automático em cada página, sem te fazer perguntas. No modo caprichado, ela faz o processo completo para um cliente: demora mais, faz algumas perguntas e entrega a página mais trabalhada. Sem ela, o Prospecta funciona do mesmo jeito.</p>
+  <h3>Uso o Claude ou o Codex?</h3>
+  <p>Tanto faz: o Prospecta funciona igual nos dois. Use o que você já tem. No painel, em Configurações, escolha o seu app para os comandos saírem no formato certo.</p>
+
+  <p class="rodape">Método P5P · P5P Prospecta · este manual acompanha a instalação e é atualizado a cada versão nova.</p>
+</div>
+</body>
+</html>

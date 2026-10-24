@@ -1,38 +1,33 @@
-# Prospector de Sites v3.1.0
+# Prospector de Sites v3.2.0 (P5P Prospecta)
 
-Prospecção semi-automática de clientes com sites ruins: acha, redesenha, publica e oferta.
+Prospecção de clientes com sites ruins: acha, redesenha, publica e oferta. Roda no app do Claude e no app do Codex, pelo navegador do próprio app.
+
+## Como está organizado
+
+Tudo são skills, em `skills/`. Cada etapa é uma skill que o aluno chama pelo nome (`/nome` no Claude, `$nome` no Codex):
+
+- **Etapas:** `setup`, `prospectar`, `redesenhar`, `editor`, `publicar`, `proposta`, `respostas`, `followup`, `contrato`, `proximo`.
+- **Apoio:** `prospecta-guia` (regras comuns: pasta de trabalho, Python, navegador do app, Gmail, segurança), `prospeccao-maps`, `redesign-premium`, `deploy-github-pages`, `proposta-email`, `contrato-servico`, `supabase-sync`.
+- **Scripts** (só biblioteca padrão do Python): `supabase-sync/references/supabase_client.py` (login, perfil, clientes, próximos passos), `deploy-github-pages/references/publicar-github.py`, `proposta-email/references/link_gmail.py` (link "Abrir no Gmail"), `contrato-servico/references/gerar-docx.py` (precisa de `python-docx`).
+- **Manual do aluno:** `skills/setup/manual.html`.
+
+## Instalação
+
+O instalador da raiz do repositório (`instalar.ps1` no Windows, `instalar.sh` no Mac) copia todas as pastas de `skills/` para `~/.claude/skills` e `~/.agents/skills`. Rodar de novo atualiza. Também continua instalável como plugin do Claude Code (`.claude-plugin/plugin.json`).
 
 ## O ciclo
 
-1. `/setup` — roda uma vez: assinatura, nichos padrão, conexão com o GitHub (com teste de publicação).
-2. `/prospectar [nicho] [cidade]` — busca no Google Maps negócios nota ≥ 4.7 com site fraco e grava direto no Supabase, com e-mail, motivo e ranking (padrão: 10 leads, teto de 25 estabelecimentos avaliados por rodada).
-3. `/redesenhar` — recria as páginas dos 5+ melhores leads com estética premium, mantendo o conteúdo, logo e paleta reais do cliente.
-4. `/editor [cliente]` — gera versão editável no navegador (textos e imagens) com exportação da página final.
-5. `/publicar [cliente|todos]` — sobe no GitHub Pages em `[usuario].github.io/[slug]/`, gera a página-capa de apresentação (antes/depois personalizado, `proposta.html`) — HTTPS já vem automático.
-6. `/proposta [cliente|todos]` — escreve o e-mail (rapport, sem preço), passa pela checklist anti-spam e cria o rascunho no Gmail com a página-capa como único link.
-7. `/respostas` — verifica no Gmail quem respondeu e atualiza o dashboard sozinho (dica: agende a verificação diária).
-8. `/followup [cliente]` — 3+ dias sem resposta? Gera o follow-up gentil (1 por lead, nunca repete) já checando quem respondeu antes.
-9. `/contrato [cliente]` — cliente fechou? Gera a minuta do contrato (pronta pra PDF) com os dados do negócio e deixa o rascunho no Gmail.
-
-## Manual e publicação automática
-
-O pacote inclui `manual.html` — o manual completo do aluno (linguagem simples, sem jargão técnico), apresentado no `/setup` e **atualizado a cada versão do plugin**. A publicação é gratuita e automática via GitHub Pages: token gerado uma vez em github.com/settings/tokens e salvo no perfil do Supabase (ou pelo painel web) — o `/publicar` faz o resto sozinho, direto pela API do GitHub, sem instalar nada no computador.
-
-## Dashboard local
-
-O plugin grava tudo num banco Supabase compartilhado da turma — cada aluno só vê os próprios dados (login por e-mail e senha). O painel de controle é um site web à parte: linha de produção (cada cliente nas 7 estações, com o próximo passo e o comando pronto para copiar), funil com arrastar e soltar, antes e depois lado a lado, ficha do cliente (estação, valor, contrato, pagamento, anotações) e dinheiro (recebido, a receber e manutenção mensal), tudo salvo no banco. No chat, `/proximo` mostra a mesma lista de próximos passos.
-
-## Requisitos
-
-- Extensão Claude in Chrome conectada (prospecção no Maps)
-- Conector do Gmail (rascunhos de proposta)
-- Pasta conectada no Claude Code (armazena config e arquivos temporários de trabalho)
-- Conta gratuita no GitHub (hospedagem via GitHub Pages)
+1. `setup`: roda uma vez (login do painel, perfil, GitHub com teste, Gmail, manual).
+2. `prospectar [nicho] [cidade]`: Google Maps pelo navegador do app, pula anúncios, grava cada cliente no painel (meta padrão 10, teto de 25 avaliados).
+3. `redesenhar`: refaz as páginas dos 5 ou mais melhores com o conteúdo, logo e fotos reais.
+4. `editor [cliente]`: versão editável no navegador, com exportação.
+5. `publicar [cliente|todos]`: GitHub Pages em `[usuario].github.io/[slug]/`, com a capa `proposta.html`.
+6. `proposta [cliente|todos]`: e-mail sem preço, checklist contra spam, rascunho no Gmail conectado ou link "Abrir no Gmail".
+7. `respostas`: quem respondeu (Gmail do app, Gmail no navegador do app, ou perguntando ao aluno).
+8. `followup [cliente]`: um lembrete gentil por cliente, depois de 3 dias.
+9. `contrato [cliente]`: minuta em folha A4 e Word travado.
+10. `proximo`: o que fazer agora com cada cliente.
 
 ## Onde ficam os dados
 
-Tudo em dois lugares: `prospector-config.json` na pasta conectada (login do Supabase, mais arquivos temporários de trabalho) e o banco Supabase (leads, perfil, GitHub) — visível também no painel web.
-
-## Como atualizar
-
-No chat: `/plugin marketplace update p5p-prospecta` e reinicie o app (versão certa: 3.1.0). Atualiza sozinho a partir daí.
+`prospector-config.json` na pasta de trabalho (token renovável do login e cache local) e o banco do painel (clientes, perfil, GitHub), visível em https://prospeccao-clientes-sites.pages.dev.

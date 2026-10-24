@@ -1,6 +1,6 @@
 ---
 name: redesign-premium
-description: Esta skill deve ser usada ao redesenhar o site de um cliente prospectado — criar uma versão nova, premium e de alta conversão da página existente, mantendo conteúdo, logo e paleta do cliente. Acione quando o usuário disser "redesenhar site", "melhorar página", "refazer o site do cliente" ou rodar /redesenhar ou /editor.
+description: Esta skill deve ser usada ao redesenhar o site de um cliente prospectado — criar uma versão nova, premium e de alta conversão da página existente, mantendo conteúdo, logo e paleta do cliente. Acione quando o usuário disser "redesenhar site", "melhorar página", "refazer o site do cliente" ou rodar redesenhar ou editor (/redesenhar e /editor no Claude, $redesenhar e $editor no Codex).
 ---
 
 # Redesign premium de páginas
@@ -16,7 +16,7 @@ Criar uma NOVA VERSÃO da página do cliente — não uma página nova. O client
 5. **Arquivo único.** `sites/[slug]/[slug].html` autocontido: CSS inline no `<head>`, sem build, sem dependências além de Google Fonts.
 6. **Responsividade TOTAL (inegociável).** A página será vista no celular do cliente E dentro da moldura da página-capa (~1000-1500px). Ela deve ser perfeita em QUALQUER largura: 360, 375, 768, 1024, 1280 e 1440px — sem rolagem horizontal, sem texto vazando, sem imagem esticada, sem seção quebrada em nenhum desses pontos. Usar grid/flex fluidos, `clamp()` para tipografia e breakpoints testados um a um. Página que quebra em alguma largura NÃO é entregue.
 7. **Editor sempre.** Todo redesign gera junto o `sites/[slug]/[slug]-editor.html` (camada de edição de `references/editor-visual.md`) — nunca entregar página sem a versão editável.
-8. **Comparador sempre.** Todo lote de redesign termina com `comparar.html` na raiz da pasta conectada, gerado a partir de `references/comparador-template.html` (substituir `__CLIENTES__` pelo array JSON; mesclar com clientes já existentes). A entrega padrão de cada cliente são 3 arquivos: página + editor + aba no comparador.
+8. **Comparador sempre.** Todo lote de redesign termina com `comparar.html` na raiz da pasta de trabalho, gerado a partir de `references/comparador-template.html` (substituir `__CLIENTES__` pelo array JSON; mesclar com clientes já existentes). A entrega padrão de cada cliente são 3 arquivos: página + editor + aba no comparador.
 
 ## Estrutura da página (adaptar à profissão)
 
@@ -46,6 +46,8 @@ A página pronta deve parecer feita por um estúdio de design — teste honesto:
 
 ## Padrão estético
 
+Se a skill de páginas do curso (impeccable) estiver instalada, as regras de qualidade dela (`reference/craft-floor.md`) e o verificador dela valem junto com este padrão, como manda a skill `redesenhar`. Em conflito, a identidade do cliente (logo, cores, fotos, conteúdo real) vence as duas. As fontes e detalhes abaixo são sugestão para quando o cliente não tem identidade própria.
+
 - Tipografia: uma serifada elegante para títulos (Playfair Display, Fraunces, Lora) + uma sans limpa para corpo (Inter, Sora, DM Sans), pesos 400/600. Hierarquia forte: h1 ≥ 40px desktop / 30px mobile.
 - Espaçamento generoso: seções com 80-120px de respiro vertical desktop; nada encostado.
 - Paleta: 1 cor da marca + neutros quentes + 1 tom de destaque para CTA. Contraste AA no mínimo.
@@ -66,4 +68,4 @@ A página pronta deve parecer feita por um estúdio de design — teste honesto:
 
 ## Editor visual e comparador
 
-A camada de edição visual (para gerar `[slug]-editor.html`) está em `references/editor-visual.md` — injetar o script exatamente como documentado lá. O comparador antes/depois está em `references/comparador-template.html` — substituir `__CLIENTES__` pelo array JSON e salvar como `comparar.html` na raiz da pasta conectada (mesclando com clientes existentes).
+A camada de edição visual (para gerar `[slug]-editor.html`) está em `references/editor-visual.md` — injetar o script exatamente como documentado lá. O comparador antes/depois está em `references/comparador-template.html` — substituir `__CLIENTES__` pelo array JSON e salvar como `comparar.html` na raiz da pasta de trabalho (mesclando com clientes existentes).

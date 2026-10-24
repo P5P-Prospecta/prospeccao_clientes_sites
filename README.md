@@ -1,54 +1,57 @@
-# 🎯 P5P Prospecta — Prospector de Sites v3.1.0
+# P5P Prospecta: Prospector de Sites v3.2.0
 
-**Plugin para Claude Code que roda o ciclo completo de prospecção e venda de sites — com CRM incluso:**
+**Roda no app do Claude e no app do Codex.** O ciclo completo de prospecção e venda de sites, com CRM incluso:
 
-**Achou → Refez → Publicou → Ofertou → Acompanhou → Fechou → Contrato.**
+**Achou, refez, publicou, ofertou, acompanhou, fechou, contrato.**
 
-De graça, sem mensalidade — o único custo é a sua conta do Claude.
+Usa o navegador que já vem dentro do app (sem extensão no Chrome). Sem mensalidade: o único custo é a sua conta do Claude ou do ChatGPT.
 
-## O que o plugin faz
+## Como instalar (uma vez, vale para Claude e Codex)
 
-| Comando | O que acontece |
-|---|---|
-| `/setup` | Configura tudo uma vez (login, assinatura, nichos, GitHub) e entrega o manual + o painel |
-| `/prospectar` | Varre o Google Maps: negócios nota ≥ 4.7 com site fraco E e-mail público → grava direto no Supabase |
-| `/redesenhar` | Recria as páginas com estética premium (fotos/logo/conteúdo REAIS) + editor visual + comparador antes/depois |
-| `/editor` | Edita texto e imagem da página no navegador, sem código |
-| `/publicar` | Publica no GitHub Pages SOZINHO (direto pela API, sem instalar nada) + página-capa da proposta + HTTPS automático |
-| `/proposta` | E-mail com rapport real, checklist anti-spam e a capa personalizada como link |
-| `/respostas` | Lê seu Gmail e move o card sozinho quando o cliente responde (agende diário!) |
-| `/followup` | 3+ dias sem resposta? Gera o lembrete gentil — 1 por lead, nunca repete |
-| `/contrato` | Fechou? Folha A4 imprimível + Word TRAVADO (cliente só preenche onde você deixar) |
-| `/proximo` | Lista o que fazer agora com cada cliente (parados primeiro) e o comando certo de cada um |
+Cole na conversa do app, ou direto no PowerShell / Terminal:
 
-## 📊 CRM (painel web)
-
-Linha de produção (cada cliente nas 7 estações, com o próximo passo e o comando pronto para copiar), funil com arrastar e soltar, antes e depois lado a lado e dinheiro (recebido, a receber e manutenção mensal), tudo num painel web com login (Supabase): **[prospeccao-clientes-sites.pages.dev](https://prospeccao-clientes-sites.pages.dev)**. Sem instalar nada.
-
-## Como instalar
-
-**No Claude Code:**
+**Windows**
 ```
-/plugin marketplace add P5P-Prospecta/prospeccao_clientes_sites
-/plugin install prospector-de-sites@p5p-prospecta
+irm https://raw.githubusercontent.com/P5P-Prospecta/prospeccao_clientes_sites/main/instalar.ps1 | iex
 ```
-Depois rode `/setup` e siga o manual (link abaixo).
 
-## 🔄 Já tem o plugin e não atualiza?
+**Mac**
+```
+curl -fsSL https://raw.githubusercontent.com/P5P-Prospecta/prospeccao_clientes_sites/main/instalar.sh | bash
+```
 
-Re-adicionar o link NÃO atualiza (fica em cache). Faça:
-```
-/plugin marketplace update p5p-prospecta
-```
-e reinicie o app — a versão certa é a **3.1.0** (confira em Gerenciar plugins). Se não subir: desinstale o plugin → remova o marketplace → feche o app → adicione e instale de novo. A atualização é automática (autoUpdate ativado).
+O instalador copia as skills para `~/.claude/skills` (Claude) e `~/.agents/skills` (Codex) e confere o Python. Depois feche e abra o app e rode `/setup` (Claude) ou `$setup` (Codex). Para atualizar, rode o mesmo comando de novo.
+
+## As etapas
+
+| Claude | Codex | O que acontece |
+|---|---|---|
+| `/setup` | `$setup` | Configura uma vez: login do painel, perfil, GitHub (com teste de publicação), Gmail e o manual |
+| `/prospectar` | `$prospectar` | Google Maps pelo navegador do app: nota 4,7 ou mais, site fraco e e-mail público; pula anúncios; grava direto no painel |
+| `/redesenhar` | `$redesenhar` | Refaz as páginas com fotos, logo e conteúdo REAIS, mais editor visual e comparador antes e depois |
+| `/editor` | `$editor` | Edita texto e imagem da página no navegador, sem código |
+| `/publicar` | `$publicar` | Publica no GitHub Pages direto pela API, com a capa da proposta e cadeado automático |
+| `/proposta` | `$proposta` | E-mail com elogio real, checklist contra spam e a capa como único link: rascunho no Gmail ou link "Abrir no Gmail" |
+| `/respostas` | `$respostas` | Confere no Gmail quem respondeu e move o cliente no painel |
+| `/followup` | `$followup` | 3 dias ou mais sem resposta: lembrete gentil, um por cliente |
+| `/contrato` | `$contrato` | Fechou? Folha A4 para imprimir e Word travado |
+| `/proximo` | `$proximo` | O que fazer agora com cada cliente (parados primeiro) e o comando certo |
+
+## CRM (painel web)
+
+Linha de produção (cada cliente nas 7 estações, com o próximo passo e o comando pronto para copiar no formato do seu app), funil com arrastar e soltar, antes e depois lado a lado e dinheiro (recebido, a receber e manutenção mensal), num painel web com login: **[prospeccao-clientes-sites.pages.dev](https://prospeccao-clientes-sites.pages.dev)**. Acesso liberado pelo e-mail da compra do Método P5P.
 
 ## Requisitos
 
-Claude Code · extensão Claude in Chrome · conector do Gmail · conta gratuita no GitHub · Windows ou Mac.
+App do Claude (aba Code) ou app do Codex · conta gratuita no GitHub · Gmail · Python (o instalador confere) · Windows ou Mac.
+
+## Instalação antiga (plugin do Claude Code)
+
+Quem usa o Claude Code no terminal ainda pode instalar como plugin: `/plugin marketplace add P5P-Prospecta/prospeccao_clientes_sites` e `/plugin install prospector-de-sites@p5p-prospecta`. Não use as duas formas juntas: se já tem o plugin, rode `/plugin uninstall prospector-de-sites@p5p-prospecta` antes do instalador.
 
 ## Manual
 
-O `/setup` entrega o [manual completo do aluno](prospector-de-sites/manual.html) — passo a passo de tudo, escrito pra quem nunca usou nada parecido, incluindo o que fazer quando dá erro.
+O setup entrega o [manual completo do aluno](prospector-de-sites/skills/setup/manual.html): passo a passo de tudo, escrito para quem nunca usou nada parecido, incluindo o que fazer quando dá erro.
 
 ---
 

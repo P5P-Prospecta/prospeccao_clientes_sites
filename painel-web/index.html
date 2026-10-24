@@ -208,6 +208,9 @@ input[type=number]{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .comecar .cmds{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
 .comecar .cmds div{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .comecar .cmds small{color:var(--note);font-size:13px}
+.comecar__topo{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px}
+.qual-app{display:flex;flex-wrap:wrap;align-items:center;gap:10px;color:var(--soft);font-size:14px}
+.comecar .so{font:600 12px/1 var(--sans);color:var(--soft);min-width:64px}
 .painel-vazio{padding:28px 24px;border:1px solid var(--line);border-radius:10px;background:var(--ink2)}
 
 /* ---------- Funil ---------- */
@@ -421,12 +424,12 @@ body.com-gaveta .recado.mostra{transform:translate(50%,0)}
       <p class="esteira__titulo">Do Google Maps ao cliente pagando</p>
       <p class="esteira__texto">Cada cliente passa por sete estações. O painel mostra em qual ele está e qual comando colar agora no Claude Code.</p>
       <ol class="esteira__quadros">
-        <li><b>Achado</b><code>/prospectar</code></li>
-        <li><b>Refeito</b><code>/redesenhar</code></li>
-        <li><b>No ar</b><code>/publicar</code></li>
-        <li><b>Proposta</b><code>/proposta</code></li>
-        <li><b>Respondeu</b><code>/respostas</code></li>
-        <li><b>Fechado</b><code>/contrato</code></li>
+        <li><b>Achado</b><code data-cmd="/prospectar">/prospectar</code></li>
+        <li><b>Refeito</b><code data-cmd="/redesenhar">/redesenhar</code></li>
+        <li><b>No ar</b><code data-cmd="/publicar">/publicar</code></li>
+        <li><b>Proposta</b><code data-cmd="/proposta">/proposta</code></li>
+        <li><b>Respondeu</b><code data-cmd="/respostas">/respostas</code></li>
+        <li><b>Fechado</b><code data-cmd="/contrato">/contrato</code></li>
         <li class="destino"><b>Pago</b><span>Você marca no painel quando o dinheiro entra.</span></li>
       </ol>
     </div>
@@ -663,6 +666,17 @@ const LIMITE = { redesenhado: 2, publicado: 2, respondeu: 2, fechado: 5 };
 const FOLLOWUP_DIAS = 3;
 
 let UID = null, LEADS = [], PERFIL = null;
+/* App do aluno: 'claude' (comandos com /) ou 'codex' (comandos com $). Preferência deste navegador. */
+let APP = 'claude';
+try { if (localStorage.getItem('prospecta-app') === 'codex') APP = 'codex'; } catch {}
+function cmd(c){ return APP === 'codex' ? String(c).replace(/^\//, '$') : c; }
+function nomeApp(){ return APP === 'codex' ? 'Codex' : 'Claude'; }
+function trocarApp(novo){
+  APP = novo === 'codex' ? 'codex' : 'claude';
+  try { localStorage.setItem('prospecta-app', APP); } catch {}
+  $$('.esteira__quadros code[data-cmd]').forEach(c => c.textContent = cmd(c.dataset.cmd));
+  if(UID){ renderTudo(); preencherConfig(); }
+}
 let FILTRO = 'ativos', BUSCA = '', ABA = 'linha', LADO = null, ABERTO = null;
 let CARREGANDO = false, ERRO_CARGA = false, ULTIMA_CARGA = 0, MODO_ENTRAR = 'entrar', FOCO_ANTES = null;
 
@@ -741,6 +755,7 @@ function proximoPasso(l){
 
 /* ---------------- Entrar ---------------- */
 function mostrarEntrar(){
+  $$('.esteira__quadros code[data-cmd]').forEach(c => c.textContent = cmd(c.dataset.cmd));
   $('#tela-painel').hidden = true;
   $('#tela-entrar').hidden = false;
   $('#sem-acesso').hidden = true;
@@ -958,7 +973,7 @@ function htmlPasso(l, p){
     <span class="passo__etapa">${esc(nomeEstacao(l))}</span>
     ${p.parado ? `<span class="selo-parado">parado há ${pluralN(p.dias, 'dia', 'dias')}</span>` : ''}
     <span class="passo__texto">${esc(p.texto)}</span>
-    ${p.cmd ? `<code class="cmd">${esc(p.cmd)}</code><button class="btn btn--sm btn--copiar" type="button" data-acao="copiar" data-cmd="${esc(p.cmd)}">${ic('copiar')}<span>Copiar</span></button>` : ''}
+    ${p.cmd ? `<code class="cmd">${esc(cmd(p.cmd))}</code><button class="btn btn--sm btn--copiar" type="button" data-acao="copiar" data-cmd="${esc(cmd(p.cmd))}">${ic('copiar')}<span>Copiar</span></button>` : ''}
     ${p.acao ? `<button class="btn btn--sm" type="button" data-acao="${p.acao.tipo}" data-slug="${esc(l.slug)}">${esc(p.acao.rot)}</button>` : ''}
     ${p.zap ? `<a class="btn btn--sm btn--ghost" href="${esc(p.zap)}" target="_blank" rel="noopener">${ic('conversa')}<span>Abrir WhatsApp</span></a>` : ''}
   </div>`;
@@ -1011,13 +1026,17 @@ function renderLinha(){
 function htmlComecar(vazio){
   const passo = (n, titulo, cmds) => `<li><span class="n">${n}</span><b>${titulo}</b><div class="cmds">${cmds}</div></li>`;
   const linha = (c, nota) => `<div><code class="cmd">${esc(c)}</code><button class="btn btn--sm btn--copiar" type="button" data-acao="copiar" data-cmd="${esc(c)}">${ic('copiar')}<span>Copiar</span></button>${nota ? `<small>${nota}</small>` : ''}</div>`;
+  const sistema = (rot, c) => `<div><span class="so">${rot}</span><code class="cmd">${esc(c)}</code><button class="btn btn--sm btn--copiar" type="button" data-acao="copiar" data-cmd="${esc(c)}">${ic('copiar')}<span>Copiar</span></button></div>`;
+  const escolha = `<div class="qual-app"><span>Você usa o</span><div class="segmento" role="group" aria-label="Qual app você usa">
+      <button type="button" data-app="claude" aria-pressed="${APP === 'claude'}">Claude</button>
+      <button type="button" data-app="codex" aria-pressed="${APP === 'codex'}">Codex</button></div></div>`;
   return `<div class="comecar">
-    <h2>${vazio ? 'Sua linha ainda está vazia' : 'Como começar'}</h2>
-    <p>${vazio ? 'Os clientes chegam aqui sozinhos quando você roda os comandos no Claude Code. São três passos, e os dois primeiros você faz uma vez só.' : 'Os comandos rodam no Claude Code. O painel mostra o resultado e o próximo passo de cada cliente.'}</p>
+    <div class="comecar__topo"><h2>${vazio ? 'Sua linha ainda está vazia' : 'Como começar'}</h2>${escolha}</div>
+    <p>${vazio ? `Os clientes chegam aqui sozinhos quando você roda o Prospecta no app do ${nomeApp()}. São três passos, e os dois primeiros você faz uma vez só.` : `O Prospecta roda no app do Claude ou do Codex. O painel mostra o resultado e o próximo passo de cada cliente.`}</p>
     <ol>
-      ${passo(1, 'Instale o plugin no Claude Code', linha('/plugin marketplace add P5P-Prospecta/prospeccao_clientes_sites') + linha('/plugin install prospector-de-sites@p5p-prospecta', 'Depois reinicie o Claude Code.'))}
-      ${passo(2, 'Faça a configuração', linha('/setup', 'Entre com o mesmo e-mail e senha deste painel.'))}
-      ${passo(3, 'Ache os primeiros clientes', linha('/prospectar', 'Ele busca no Google Maps e os clientes aparecem aqui.'))}
+      ${passo(1, 'Instale o Prospecta (uma vez)', sistema('Windows', 'irm https://raw.githubusercontent.com/P5P-Prospecta/prospeccao_clientes_sites/main/instalar.ps1 | iex') + sistema('Mac', 'curl -fsSL https://raw.githubusercontent.com/P5P-Prospecta/prospeccao_clientes_sites/main/instalar.sh | bash') + `<small>Cole o comando na conversa do app e peça para rodar (ou cole direto no PowerShell ou no Terminal). Ele instala no Claude e no Codex juntos. Depois feche e abra o app.</small>`)}
+      ${passo(2, 'Faça a configuração', linha(cmd('/setup'), 'Entre com o mesmo e-mail e senha deste painel.'))}
+      ${passo(3, 'Ache os primeiros clientes', linha(cmd('/prospectar'), 'Ele busca no Google Maps, pelo navegador do próprio app, e os clientes aparecem aqui.'))}
     </ol>
   </div>`;
 }
@@ -1148,7 +1167,7 @@ function renderDinheiro(){
     <thead><tr><th>Cliente</th><th>Contrato</th><th>Pagamento</th><th class="dir">Valor do site</th><th class="dir">Manutenção por mês</th><th><span class="sr">Ação</span></th></tr></thead>
     <tbody>${fechados.map(l => {
       const p = proximoPasso(l);
-      const acao = p.cmd ? `<button class="btn btn--sm btn--copiar" type="button" data-acao="copiar" data-cmd="${esc(p.cmd)}">${ic('copiar')}<span>Copiar ${esc(p.cmd.split(' ')[0])}</span></button>`
+      const acao = p.cmd ? `<button class="btn btn--sm btn--copiar" type="button" data-acao="copiar" data-cmd="${esc(cmd(p.cmd))}">${ic('copiar')}<span>Copiar ${esc(cmd(p.cmd).split(' ')[0])}</span></button>`
         : p.acao ? `<button class="btn btn--sm" type="button" data-acao="${p.acao.tipo}" data-slug="${esc(l.slug)}">${esc(p.acao.rot)}</button>` : '';
       return `<tr data-acao="abrir" data-slug="${esc(l.slug)}">
         <td data-rot="Cliente"><b class="nome">${esc(nomeDe(l))}</b></td>
@@ -1317,6 +1336,8 @@ document.addEventListener('click', async ev => {
   if(irAba){ mostrarAba(irAba.dataset.abaIr); return; }
   const aba = ev.target.closest('.aba[data-aba]');
   if(aba){ mostrarAba(aba.dataset.aba); return; }
+  const app = ev.target.closest('[data-app]');
+  if(app){ trocarApp(app.dataset.app); recado(`Comandos no formato do ${nomeApp()}.`); return; }
   const filtro = ev.target.closest('[data-filtro]');
   if(filtro){ FILTRO = filtro.dataset.filtro; $$('[data-filtro]').forEach(b => b.setAttribute('aria-pressed', b === filtro ? 'true' : 'false')); renderLinha(); return; }
   if(ev.target.closest('#gaveta-fundo')){ fecharGaveta(); return; }

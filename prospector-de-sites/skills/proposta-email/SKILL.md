@@ -1,6 +1,6 @@
 ---
 name: proposta-email
-description: Esta skill deve ser usada ao escrever e enviar a proposta comercial por e-mail para um lead prospectado — e-mail de apresentação da nova versão do site, com rapport e sem preço. Acione quando o usuário disser "enviar proposta", "e-mail para o cliente", "mandar o site para o cliente" ou rodar /proposta ou /followup.
+description: Esta skill deve ser usada ao escrever e enviar a proposta comercial por e-mail para um lead prospectado — e-mail de apresentação da nova versão do site, com rapport e sem preço. Acione quando o usuário disser "enviar proposta", "e-mail para o cliente", "mandar o site para o cliente" ou rodar proposta ou followup (/proposta e /followup no Claude, $proposta e $followup no Codex).
 ---
 
 # Proposta por e-mail
@@ -42,8 +42,14 @@ Revise o e-mail pronto contra CADA item; se falhar em qualquer um, reescreva ant
 
 ## Envio
 
-- Modo **rascunho** (padrão): criar via conector do Gmail (`create_draft`) com destinatário, assunto e corpo prontos. Avisar o usuário para revisar antes de enviar.
-- Modo **enviar direto**: se o conector não suportar envio, abrir o Gmail web via Claude in Chrome, ou criar o rascunho e avisar.
+Siga a parte "Gmail" da skill `prospecta-guia`:
+- **Gmail conectado no app** (Claude: conector do Gmail, `create_draft`; Codex: plugin Gmail): criar o RASCUNHO com destinatário, assunto e corpo prontos e avisar o aluno para revisar antes de enviar.
+- **Sem Gmail conectado** (ou se a ferramenta não criar rascunho): gerar o link "Abrir no Gmail" com o script desta skill e entregar ao aluno junto com o texto:
+  ```
+  python <skills>/proposta-email/references/link_gmail.py --para "email@cliente.com" --assunto "Assunto" --corpo-arquivo corpo.txt
+  ```
+  (Windows `python`, Mac `python3`; `--conta email-do-aluno` abre na conta certa quando ele tem mais de um Gmail). O corpo vai em texto simples: o Gmail transforma o endereço da capa em link ao enviar, com o texto visível igual ao endereço.
+- Modo **enviar direto**: só se o app tiver como enviar; senão, rascunho ou link, e avisar.
 - Nunca enviar para lead sem e-mail confirmado; nesses casos, sugerir contato via WhatsApp com a mesma mensagem adaptada.
 
 ## Página-capa (o que o cliente vê ao clicar)

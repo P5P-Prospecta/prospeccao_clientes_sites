@@ -1,6 +1,6 @@
 ---
 name: contrato-servico
-description: Esta skill deve ser usada ao gerar contratos de prestação de serviço para clientes fechados — criação/redesign de site, publicação e manutenção. Acione quando o usuário disser "contrato", "gerar contrato", "formalizar", "cliente fechou", "enviar contrato" ou rodar /contrato.
+description: Esta skill deve ser usada ao gerar contratos de prestação de serviço para clientes fechados — criação/redesign de site, publicação e manutenção. Acione quando o usuário disser "contrato", "gerar contrato", "formalizar", "cliente fechou", "enviar contrato" ou rodar contrato (/contrato no Claude, $contrato no Codex).
 ---
 
 # Contrato de prestação de serviço
@@ -23,9 +23,9 @@ Gerar a minuta do contrato do serviço fechado (redesign + publicação de pági
 
 Script pronto: `references/gerar-docx.py` (requer `python-docx`). Recebe `dados.json` (mesmas chaves do template HTML + `MANUTENCAO: true/false` e `VALOR_MANUTENCAO`) e gera o .docx com proteção `readOnly` + regiões editáveis (`permStart/permEnd`, grupo everyone) nos pontos do cliente: CPF/CNPJ e endereço quando vierem como "(preencher)", data e assinatura — destacados em amarelo. Limitação honesta (avise o usuário 1 vez): a proteção do Word é dissuasória, guia o preenchimento mas não impede quem quiser desativá-la; para validade forte, assinatura eletrônica (gov.br, Autentique).
 
-## E-mail de envio (rascunho no Gmail)
+## E-mail de envio (rascunho no Gmail ou link "Abrir no Gmail", como manda a skill `prospecta-guia`)
 
-Assunto: `Contrato de prestação de serviço — nova página [Nome do negócio]`. Corpo (adaptar à voz do usuário): agradecer a confiança, resumir em 2 linhas o combinado (escopo + valor + prazo), pedir que leia a minuta anexa e responda com um "de acordo" (ou assine digitalmente, se o usuário usar alguma ferramenta), e fechar com a assinatura do config. Instruir o usuário a ANEXAR o PDF exportado antes de enviar.
+Assunto: `Contrato de prestação de serviço: nova página [Nome do negócio]`. Corpo (adaptar à voz do usuário): agradecer a confiança, resumir em 2 linhas o combinado (escopo + valor + prazo), pedir que leia a minuta anexa e responda com um "de acordo" (ou assine digitalmente, se o usuário usar alguma ferramenta), e fechar com a assinatura do config. Instruir o usuário a ANEXAR o PDF exportado antes de enviar.
 
 ## Limites
 

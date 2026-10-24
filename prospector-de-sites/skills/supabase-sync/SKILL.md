@@ -55,7 +55,7 @@ python3 [caminho]/references/supabase_client.py upsert-lead CAMINHO/prospector-c
 python3 [caminho]/references/supabase_client.py proximos CAMINHO/prospector-config.json
 ```
 
-Imprime, em português, cada cliente ativo com a estação, o que falta fazer e o comando certo (parados primeiro). É a mesma lógica da aba "Linha de produção" do painel. Usado pelo `/proximo`; use também no fim de qualquer comando para sugerir o próximo passo.
+Imprime, em português, cada cliente ativo com a estação, o que falta fazer e o comando certo (parados primeiro). É a mesma lógica da aba "Linha de produção" do painel. Usado pela skill `proximo`; use também no fim de qualquer etapa para sugerir o próximo passo. No Codex, acrescente `--app codex` para os comandos saírem com `$` no lugar da barra.
 
 No Windows, se `python3` não existir, use `python` (ou `py -3`) em todos os comandos desta skill.
 

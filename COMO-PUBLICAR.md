@@ -18,14 +18,14 @@ Depois de publicado, esse é o link que você manda pro aluno usar no navegador 
 
 ## 3. Plugin (pasta `prospector-de-sites/`)
 
-Hoje mora em `P5P-Prospecta/prospeccao_clientes_sites`, **público** (pra qualquer aluno instalar sozinho, sem você precisar adicionar cada um como colaborador). O aluno instala com:
+Hoje mora em `P5P-Prospecta/prospeccao_clientes_sites`, **público** (pra qualquer aluno instalar sozinho). Desde a 3.2.0 tudo são skills e roda no app do Claude e no app do Codex. O aluno instala com um comando (vale para os dois apps):
 
 ```
-/plugin marketplace add P5P-Prospecta/prospeccao_clientes_sites
-/plugin install prospector-de-sites@p5p-prospecta
+Windows: irm https://raw.githubusercontent.com/P5P-Prospecta/prospeccao_clientes_sites/main/instalar.ps1 | iex
+Mac:     curl -fsSL https://raw.githubusercontent.com/P5P-Prospecta/prospeccao_clientes_sites/main/instalar.sh | bash
 ```
 
-(o nome depois do `@` é o que está em `.claude-plugin/marketplace.json`, campo `name` — `p5p-prospecta`, alinhado com o repo `P5P-Prospecta`.)
+O instalador baixa o `main` do GitHub e copia `prospector-de-sites/skills/*` para `~/.claude/skills` e `~/.agents/skills`. Então **qualquer push no main já vale para quem rodar o instalador de novo** (é assim que o aluno atualiza). Quem usa o Claude Code no terminal ainda pode instalar como plugin (`/plugin marketplace add P5P-Prospecta/prospeccao_clientes_sites` e `/plugin install prospector-de-sites@p5p-prospecta`), mas não junto com o instalador.
 
 ## 4. Testando a volta toda
 
