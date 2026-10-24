@@ -1404,7 +1404,10 @@ sb.auth.getSession().then(({ data: { session } }) => {
     msgEntrar('Esse link expirou ou já foi usado. Peça outro aqui embaixo.', true);
     return;
   }
-  if(session) iniciarPainel(); else mostrarEntrar();
+  if(session){ iniciarPainel(); return; }
+  mostrarEntrar();
+  /* O e-mail de boas-vindas da compra traz ?criar: abre direto em Criar conta. */
+  if(new URLSearchParams(location.search).has('criar')) modoEntrar('criar');
 });
 </script>
 </body>
