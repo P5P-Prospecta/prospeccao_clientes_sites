@@ -94,6 +94,8 @@ input[type=number]{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .form-entrar p.leve{margin:-8px 0 0;color:var(--soft)}
 .form-entrar .btn--lime{height:46px;width:100%;font-size:15px}
 .troca{margin:0;color:var(--soft);font-size:14px}
+.esqueci{justify-self:start;margin-top:-6px;font-weight:500;color:var(--soft)}
+.esqueci:hover{color:var(--fg)}
 .nota-setup{margin:0;padding-top:16px;border-top:1px solid var(--line);color:var(--note);font-size:13px}
 .nota-setup code{font:500 12.5px var(--mono);color:var(--soft)}
 @media (min-width:1024px){
@@ -434,15 +436,20 @@ body.com-gaveta .recado.mostra{transform:translate(50%,0)}
     <form id="form-entrar" class="form-entrar__caixa" novalidate>
       <h2 id="entrar-titulo">Entrar no painel</h2>
       <p class="leve" id="entrar-sub">Use o e-mail e a senha da sua conta.</p>
-      <div class="campo">
+      <div class="campo" id="campo-email">
         <label for="in-email">E-mail</label>
         <input id="in-email" type="email" autocomplete="email" placeholder="voce@email.com" required>
       </div>
-      <div class="campo">
-        <label for="in-senha">Senha</label>
+      <div class="campo" id="campo-senha">
+        <label for="in-senha" id="rotulo-senha">Senha</label>
         <input id="in-senha" type="password" autocomplete="current-password" placeholder="mínimo 6 caracteres" required>
       </div>
+      <div class="campo" id="campo-senha2" hidden>
+        <label for="in-senha2">Repita a senha nova</label>
+        <input id="in-senha2" type="password" autocomplete="new-password" placeholder="a mesma senha de novo">
+      </div>
       <button class="btn btn--lime" id="entrar-botao" type="submit">Entrar</button>
+      <button class="link-btn esqueci" id="entrar-esqueci" type="button" data-acao="modo-recuperar">Esqueci minha senha</button>
       <p class="recado-form" id="entrar-msg" role="alert"></p>
       <p class="troca" id="entrar-troca">Ainda não tem conta? <button type="button" class="link-btn" data-acao="modo-criar">Criar conta</button></p>
       <p class="nota-setup">Use o mesmo e-mail e senha no <code>/setup</code> do Claude Code. É assim que o plugin grava os seus clientes aqui.</p>
@@ -636,6 +643,9 @@ body.com-gaveta .recado.mostra{transform:translate(50%,0)}
 <script>
 const SUPABASE_URL = "https://jzlkqzamkgxxlbmpfisq.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp6bGtxemFta2d4eGxibXBmaXNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcyNjQxODQsImV4cCI6MjEwMjg0MDE4NH0.csGO129p80m2dP-6iLQkzT7PnEOal2ZgheOKi9o_u-s";
+/* O link de "criar senha nova" chega com #...type=recovery; guardar antes do Supabase limpar o endereço. */
+const HASH_INICIAL = location.hash;
+let RECUPERANDO = /type=recovery/.test(HASH_INICIAL);
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 /* As sete estações. "Pago" não é um status do banco: é "fechado" com pago = true. */
@@ -752,17 +762,38 @@ async function temAcesso(){
     return error ? true : data !== false;
   } catch { return true; }
 }
+const TEXTOS_ENTRAR = {
+  entrar: ['Entrar no painel', 'Use o e-mail e a senha da sua conta.', 'Entrar'],
+  criar: ['Criar sua conta', 'Use o e-mail da compra do Método P5P e escolha uma senha. Você vai usar os dois no /setup.', 'Criar conta'],
+  recuperar: ['Esqueci minha senha', 'Digite o e-mail da sua conta. Mandamos um link para você criar uma senha nova.', 'Enviar o link'],
+  'nova-senha': ['Criar senha nova', 'Escolha a senha nova da sua conta. Depois use a mesma no /setup do Claude Code.', 'Salvar senha nova'],
+};
 function modoEntrar(modo){
   MODO_ENTRAR = modo;
-  const criar = modo === 'criar';
-  $('#entrar-titulo').textContent = criar ? 'Criar sua conta' : 'Entrar no painel';
-  $('#entrar-sub').textContent = criar ? 'Use o e-mail da compra do Método P5P e escolha uma senha. Você vai usar os dois no /setup.' : 'Use o e-mail e a senha da sua conta.';
-  $('#entrar-botao').textContent = criar ? 'Criar conta' : 'Entrar';
-  $('#in-senha').autocomplete = criar ? 'new-password' : 'current-password';
-  $('#entrar-troca').innerHTML = criar
-    ? 'Já tem conta? <button type="button" class="link-btn" data-acao="modo-entrar">Entrar</button>'
-    : 'Ainda não tem conta? <button type="button" class="link-btn" data-acao="modo-criar">Criar conta</button>';
+  const [titulo, sub, botao] = TEXTOS_ENTRAR[modo];
+  $('#entrar-titulo').textContent = titulo;
+  $('#entrar-sub').textContent = sub;
+  $('#entrar-botao').textContent = botao;
+  $('#campo-email').hidden = modo === 'nova-senha';
+  $('#campo-senha').hidden = modo === 'recuperar';
+  $('#campo-senha2').hidden = modo !== 'nova-senha';
+  $('#entrar-esqueci').hidden = modo !== 'entrar';
+  $('#rotulo-senha').textContent = modo === 'nova-senha' ? 'Senha nova' : 'Senha';
+  $('#in-senha').autocomplete = modo === 'entrar' ? 'current-password' : 'new-password';
+  $('#entrar-troca').hidden = modo === 'nova-senha';
+  $('#entrar-troca').innerHTML = modo === 'entrar'
+    ? 'Ainda não tem conta? <button type="button" class="link-btn" data-acao="modo-criar">Criar conta</button>'
+    : `${modo === 'recuperar' ? 'Lembrou a senha?' : 'Já tem conta?'} <button type="button" class="link-btn" data-acao="modo-entrar">Entrar</button>`;
   msgEntrar('');
+}
+function mostrarNovaSenha(){
+  $('#tela-painel').hidden = true;
+  $('#tela-entrar').hidden = false;
+  $('#sem-acesso').hidden = true;
+  $('#form-entrar').hidden = false;
+  modoEntrar('nova-senha');
+  $('#in-senha').value = ''; $('#in-senha2').value = '';
+  setTimeout(() => $('#in-senha').focus(), 50);
 }
 function msgEntrar(t, erro){ const m = $('#entrar-msg'); m.textContent = t; m.className = 'recado-form' + (erro ? ' erro' : ''); }
 function erroAuth(e){
@@ -770,6 +801,7 @@ function erroAuth(e){
   if(/invalid login credentials/i.test(m)) return 'E-mail ou senha incorretos.';
   if(/already registered|already exists/i.test(m)) return 'Esse e-mail já tem conta. Clique em Entrar.';
   if(/email not confirmed/i.test(m)) return 'Falta confirmar o e-mail. Abra a mensagem que chegou na sua caixa de entrada.';
+  if(/different from the old/i.test(m)) return 'A senha nova precisa ser diferente da antiga.';
   if(/password/i.test(m)) return 'A senha precisa ter pelo menos 6 caracteres.';
   if(/rate|too many/i.test(m)) return 'Muitas tentativas seguidas. Espere um minuto e tente de novo.';
   return 'Não deu certo agora. Confira a internet e tente de novo.';
@@ -777,9 +809,36 @@ function erroAuth(e){
 $('#form-entrar').addEventListener('submit', async ev => {
   ev.preventDefault();
   const email = $('#in-email').value.trim(), senha = $('#in-senha').value;
+  const b = $('#entrar-botao');
+  if(MODO_ENTRAR === 'recuperar'){
+    if(!email){ msgEntrar('Digite o e-mail da sua conta.', true); return; }
+    b.disabled = true; msgEntrar('');
+    try{
+      const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname });
+      if(error) throw error;
+      msgEntrar('Se esse e-mail tiver conta, o link chega em alguns minutos. Confira também a caixa de spam.');
+    } catch(e){ msgEntrar(erroAuth(e), true); }
+    finally{ b.disabled = false; }
+    return;
+  }
+  if(MODO_ENTRAR === 'nova-senha'){
+    if(senha.length < 6){ msgEntrar('A senha precisa ter pelo menos 6 caracteres.', true); return; }
+    if(senha !== $('#in-senha2').value){ msgEntrar('As duas senhas estão diferentes. Digite de novo.', true); return; }
+    b.disabled = true; msgEntrar('');
+    try{
+      const { error } = await sb.auth.updateUser({ password: senha });
+      if(error) throw error;
+      RECUPERANDO = false;
+      history.replaceState(null, '', location.pathname);
+      await iniciarPainel();
+      recado('Senha nova salva. Use a mesma no /setup do Claude Code.');
+    } catch(e){ msgEntrar(erroAuth(e), true); }
+    finally{ b.disabled = false; }
+    return;
+  }
   if(!email || !senha){ msgEntrar('Preencha o e-mail e a senha.', true); return; }
   if(MODO_ENTRAR === 'criar' && senha.length < 6){ msgEntrar('A senha precisa ter pelo menos 6 caracteres.', true); return; }
-  const b = $('#entrar-botao'); b.disabled = true; msgEntrar('');
+  b.disabled = true; msgEntrar('');
   try{
     if(MODO_ENTRAR === 'criar'){
       const { data, error } = await sb.auth.signUp({ email, password: senha });
@@ -1279,6 +1338,7 @@ document.addEventListener('click', async ev => {
     }
     case 'modo-criar': modoEntrar('criar'); $('#in-email').focus(); break;
     case 'modo-entrar': modoEntrar('entrar'); $('#in-email').focus(); break;
+    case 'modo-recuperar': modoEntrar('recuperar'); $('#in-email').focus(); break;
     case 'sair': await sair(); break;
     case 'atualizar': await Promise.all([carregarPerfil(), carregarLeads()]); if(!ERRO_CARGA) recado('Clientes atualizados.'); break;
     case 'abrir': abrirGaveta(slug); break;
@@ -1332,8 +1392,20 @@ document.addEventListener('visibilitychange', () => {
   if(document.visibilityState === 'visible' && UID && Date.now() - ULTIMA_CARGA > 15000) carregarLeads();
 });
 
-sb.auth.onAuthStateChange(evento => { if(evento === 'SIGNED_OUT' && UID){ UID = null; mostrarEntrar(); } });
-sb.auth.getSession().then(({ data: { session } }) => { if(session) iniciarPainel(); else mostrarEntrar(); });
+sb.auth.onAuthStateChange(evento => {
+  if(evento === 'PASSWORD_RECOVERY'){ RECUPERANDO = true; mostrarNovaSenha(); return; }
+  if(evento === 'SIGNED_OUT' && UID){ UID = null; mostrarEntrar(); }
+});
+sb.auth.getSession().then(({ data: { session } }) => {
+  if(RECUPERANDO && session){ mostrarNovaSenha(); return; }
+  if(/error_code=|error_description=/.test(HASH_INICIAL)){
+    history.replaceState(null, '', location.pathname);
+    mostrarEntrar(); modoEntrar('recuperar');
+    msgEntrar('Esse link expirou ou já foi usado. Peça outro aqui embaixo.', true);
+    return;
+  }
+  if(session) iniciarPainel(); else mostrarEntrar();
+});
 </script>
 </body>
 </html>
