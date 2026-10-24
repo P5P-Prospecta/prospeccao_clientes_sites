@@ -35,3 +35,25 @@ Hoje mora em `P5P-Prospecta/prospeccao_clientes_sites`, **público** (pra qualqu
 4. Abra o painel web de novo (ou dê refresh) — os leads devem aparecer na tabela.
 
 Se aparecerem, a integração está funcionando ponta a ponta.
+
+## 5. Acesso só para quem comprou o Método P5P (Hotmart)
+
+Desde a versão 3.1.0 o banco só abre os dados para quem tem acesso ativo na tabela `acessos`. Quem já tinha conta antes continua entrando (entra como `conta_existente`). Quem comprou o Método P5P é liberado pelo webhook da Hotmart, pelo e-mail da compra; reembolso e chargeback bloqueiam.
+
+Uma vez só:
+
+1. **Banco**: rode `sql/02-acesso-pela-compra.sql` no SQL Editor do projeto `jzlkqzamkgxxlbmpfisq` (ou pelo Supabase CLI com um token de acesso desse projeto). Pode rodar de novo sem estragar nada.
+2. **Função**: publique o webhook, sem exigir login do Supabase:
+   ```
+   npx supabase functions deploy hotmart-webhook --project-ref jzlkqzamkgxxlbmpfisq --no-verify-jwt --use-api
+   ```
+3. **Secret**: em Edge Functions > Secrets, crie `HOTMART_HOTTOK` com o mesmo Hottok da Hotmart (o mesmo que já está no webhook da Fábrica de Copy). Opcional: `HOTMART_PRODUTOS` (padrão `8355172`, o Método P5P).
+4. **Hotmart**: Ferramentas > Webhook > novo webhook com a URL `https://jzlkqzamkgxxlbmpfisq.supabase.co/functions/v1/hotmart-webhook`, produto MÉTODO P5P, eventos compra aprovada, compra completa, reembolso e chargeback, versão 2.0.0.
+5. **Teste**: "Enviar teste" na Hotmart manda produto 0 e e-mail @example.com, então o resultado esperado é "outro produto" na tabela `hotmart_eventos` (prova que o Hottok bateu).
+
+Para liberar alguém na mão (comprou com outro e-mail, cortesia):
+```sql
+insert into public.acessos (email, origem) values ('email@da.pessoa', 'manual')
+on conflict (email) do update set status = 'ativo', atualizado_em = now();
+```
+Para bloquear: `update public.acessos set status = 'bloqueado' where email = 'email@da.pessoa';`

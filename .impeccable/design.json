@@ -1,0 +1,452 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-24T00:00:00-03:00",
+  "title": "Design System: P5P Prospecta",
+  "extensions": {
+    "extends": "LP SERVIÇOS/Nova pasta/PAGINA NOVA DO CURSO FABRICA DIGITAL  - AULA/DESIGN.md e sistema gerador de prompt para pagina de vendas/DESIGN.md (A Linha de Produção)",
+    "colorMeta": {
+      "lime": {
+        "role": "primary",
+        "displayName": "Verde-Limão de Esteira",
+        "canonical": "#CCFF00",
+        "tonalRamp": [
+          "#2E3A00",
+          "#4A5C00",
+          "#677F00",
+          "#85A300",
+          "#A6CC00",
+          "#CCFF00",
+          "#DBFF4D",
+          "#EEFFA6"
+        ]
+      },
+      "lime-hover": {
+        "role": "primary",
+        "displayName": "Verde-Limão Claro (hover)",
+        "canonical": "#DBFF4D",
+        "tonalRamp": [
+          "#2E3A00",
+          "#4A5C00",
+          "#677F00",
+          "#85A300",
+          "#A6CC00",
+          "#CCFF00",
+          "#DBFF4D",
+          "#EEFFA6"
+        ]
+      },
+      "amber": {
+        "role": "secondary",
+        "displayName": "Âmbar de Parado",
+        "canonical": "#FFB547",
+        "tonalRamp": [
+          "#3D2600",
+          "#663F00",
+          "#8F5A00",
+          "#B87400",
+          "#E09000",
+          "#FFB547",
+          "#FFCD80",
+          "#FFE6BF"
+        ]
+      },
+      "danger": {
+        "role": "tertiary",
+        "displayName": "Vermelho de Parada",
+        "canonical": "#FF6A5C",
+        "tonalRamp": [
+          "#4A120D",
+          "#7A1F17",
+          "#A82C22",
+          "#D9402F",
+          "#FF6A5C",
+          "#FF8F84",
+          "#FFB5AE",
+          "#FFDCD8"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Preto de Fábrica",
+        "canonical": "#0A0A0A",
+        "tonalRamp": [
+          "#0A0A0A",
+          "#111111",
+          "#1C1C1C",
+          "#2A2A2A",
+          "#3A3A3A",
+          "#8A8A8A",
+          "#B8B8B8",
+          "#F5F5F5"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Painel",
+        "canonical": "#111111",
+        "tonalRamp": [
+          "#0A0A0A",
+          "#111111",
+          "#1C1C1C",
+          "#2A2A2A",
+          "#3A3A3A",
+          "#8A8A8A",
+          "#B8B8B8",
+          "#F5F5F5"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Painel Ativo",
+        "canonical": "#151515",
+        "tonalRamp": [
+          "#0A0A0A",
+          "#111111",
+          "#1C1C1C",
+          "#2A2A2A",
+          "#3A3A3A",
+          "#8A8A8A",
+          "#B8B8B8",
+          "#F5F5F5"
+        ]
+      },
+      "ink-4": {
+        "role": "neutral",
+        "displayName": "Painel Alto",
+        "canonical": "#1C1C1C",
+        "tonalRamp": [
+          "#0A0A0A",
+          "#111111",
+          "#1C1C1C",
+          "#2A2A2A",
+          "#3A3A3A",
+          "#8A8A8A",
+          "#B8B8B8",
+          "#F5F5F5"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Filete",
+        "canonical": "#2A2A2A",
+        "tonalRamp": [
+          "#0A0A0A",
+          "#111111",
+          "#1C1C1C",
+          "#2A2A2A",
+          "#3A3A3A",
+          "#8A8A8A",
+          "#B8B8B8",
+          "#F5F5F5"
+        ]
+      },
+      "line-2": {
+        "role": "neutral",
+        "displayName": "Filete Forte",
+        "canonical": "#3A3A3A",
+        "tonalRamp": [
+          "#0A0A0A",
+          "#111111",
+          "#1C1C1C",
+          "#2A2A2A",
+          "#3A3A3A",
+          "#8A8A8A",
+          "#B8B8B8",
+          "#F5F5F5"
+        ]
+      },
+      "fg": {
+        "role": "neutral",
+        "displayName": "Texto",
+        "canonical": "#F5F5F5",
+        "tonalRamp": [
+          "#0A0A0A",
+          "#111111",
+          "#1C1C1C",
+          "#2A2A2A",
+          "#3A3A3A",
+          "#8A8A8A",
+          "#B8B8B8",
+          "#F5F5F5"
+        ]
+      },
+      "soft": {
+        "role": "neutral",
+        "displayName": "Texto de Apoio",
+        "canonical": "#B8B8B8",
+        "tonalRamp": [
+          "#0A0A0A",
+          "#111111",
+          "#1C1C1C",
+          "#2A2A2A",
+          "#3A3A3A",
+          "#8A8A8A",
+          "#B8B8B8",
+          "#F5F5F5"
+        ]
+      },
+      "note": {
+        "role": "neutral",
+        "displayName": "Nota",
+        "canonical": "#8A8A8A",
+        "tonalRamp": [
+          "#0A0A0A",
+          "#111111",
+          "#1C1C1C",
+          "#2A2A2A",
+          "#3A3A3A",
+          "#8A8A8A",
+          "#B8B8B8",
+          "#F5F5F5"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Só a frase da metade verde da tela de entrar. Caixa alta, 15ch."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Título de cada aba; 24px no celular. Caixa alta."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Título de bloco em Configurações e do Como começar. Caixa alta."
+      },
+      "station": {
+        "displayName": "Station",
+        "purpose": "Nome de estação em qualquer lugar: película, Funil, gaveta, rótulos Antes e Depois. Caixa alta."
+      },
+      "brand": {
+        "displayName": "Brand",
+        "purpose": "Prospecta ao lado do selo P5P. Caixa alta."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Toda a interface."
+      },
+      "client-name": {
+        "displayName": "Client Name",
+        "purpose": "Nome do cliente na matriz e nas listas."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Rótulos de campo e cabeçalhos de matriz e tabela."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Texto de botões; 13px no botão pequeno."
+      },
+      "command": {
+        "displayName": "Command",
+        "purpose": "O comando para colar no Claude Code."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Totais do Dinheiro; contagens, datas, valores e nota também em mono tabular."
+      }
+    },
+    "shadows": [
+      {
+        "name": "anel-foco-campo",
+        "value": "0 0 0 1px var(--lime)",
+        "purpose": "Soma 1px à borda verde do campo com foco. Sem desfoque."
+      },
+      {
+        "name": "aro-estacao-atual",
+        "value": "border: 2px solid var(--lime); outline: 1px solid var(--lime); outline-offset: 3px",
+        "purpose": "Aro duplo chapado da estação atual; âmbar quando o cliente está parado."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.2,.8,.2,1)",
+        "purpose": "Gaveta (300ms), fundo da gaveta (250ms), recado (200ms), pisca da casa atual (900ms)."
+      },
+      {
+        "name": "furos-correndo",
+        "value": "background-position -24px, 800ms linear infinite",
+        "purpose": "Furos da película correm enquanto o painel busca dados."
+      },
+      {
+        "name": "estado",
+        "value": "150ms",
+        "purpose": "Hover de botões, campos, linhas e casas."
+      },
+      {
+        "name": "copiado",
+        "value": "1600ms",
+        "purpose": "Botão Copiar fica verde com Copiado."
+      },
+      {
+        "name": "recado-desfazer",
+        "value": "6000ms",
+        "purpose": "Tempo do Desfazer no recado; recado simples some em 2600ms."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "rotulo-curto",
+        "value": "640px"
+      },
+      {
+        "name": "celular",
+        "value": "860px"
+      },
+      {
+        "name": "entrar-dividido",
+        "value": "1024px"
+      },
+      {
+        "name": "uma-coluna",
+        "value": "1100px"
+      }
+    ],
+    "rasterImages": "Nenhuma. painel-web/img/login-hero.png continua no repositório, mas não é referenciada pelo build."
+  },
+  "components": [
+    {
+      "name": "Botão principal",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Verde chapado com letra preta: Entrar, Salvar.",
+      "html": "<button class=\"ds-btn ds-btn--lime\">Salvar</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border:1px solid #3A3A3A;border-radius:8px;background:#151515;color:#F5F5F5;font:600 14px/1 'Sora',system-ui,sans-serif;cursor:pointer;transition:background .15s,border-color .15s,color .15s}.ds-btn:hover{background:#1C1C1C;border-color:#4A4A4A}.ds-btn:focus-visible{outline:2px solid #CCFF00;outline-offset:2px}.ds-btn--lime{background:#CCFF00;border-color:#CCFF00;color:#0A0A0A}.ds-btn--lime:hover{background:#DBFF4D;border-color:#DBFF4D}"
+    },
+    {
+      "name": "Botão padrão e perigo",
+      "kind": "button",
+      "refersTo": "button-default",
+      "description": "Padrão em painel ativo; Descartar em vermelho sobre transparente.",
+      "html": "<div style=\"display:flex;gap:8px;padding:12px;background:#0A0A0A\"><button class=\"ds-btn\">Marcar fechado</button><button class=\"ds-btn ds-btn--perigo\">Descartar</button></div>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border:1px solid #3A3A3A;border-radius:8px;background:#151515;color:#F5F5F5;font:600 14px/1 'Sora',system-ui,sans-serif;cursor:pointer;transition:background .15s,border-color .15s,color .15s}.ds-btn:hover{background:#1C1C1C;border-color:#4A4A4A}.ds-btn:focus-visible{outline:2px solid #CCFF00;outline-offset:2px}.ds-btn--perigo{background:transparent;border-color:transparent;color:#FF6A5C}.ds-btn--perigo:hover{background:rgba(255,106,92,.08);border-color:rgba(255,106,92,.35)}"
+    },
+    {
+      "name": "Comando para copiar",
+      "kind": "custom",
+      "refersTo": "command",
+      "description": "Comando em mono numa caixa preta e botão Copiar, que vira verde ao copiar.",
+      "html": "<div class=\"ds-passo\"><code class=\"ds-cmd\">/proposta Nutri Ana Lima</code><button class=\"ds-copiar\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"9\" y=\"9\" width=\"11\" height=\"11\" rx=\"2\"/><path d=\"M5 15V6a2 2 0 0 1 2-2h8\"/></svg><span>Copiar</span></button><button class=\"ds-copiar ds-copiado\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"9\" y=\"9\" width=\"11\" height=\"11\" rx=\"2\"/><path d=\"M5 15V6a2 2 0 0 1 2-2h8\"/></svg><span>Copiado</span></button></div>",
+      "css": ".ds-passo{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:14px;background:#111111}.ds-cmd{display:inline-block;padding:5px 10px;border:1px solid #3A3A3A;border-radius:6px;background:#0A0A0A;color:#F5F5F5;font:500 13px/1.4 'JetBrains Mono',ui-monospace,monospace}.ds-copiar{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border:1px solid #3A3A3A;border-radius:6px;background:#151515;color:#F5F5F5;font:600 13px/1 'Sora',system-ui,sans-serif;cursor:pointer;transition:background .15s,border-color .15s}.ds-copiar:hover{background:#1C1C1C;border-color:#4A4A4A}.ds-copiar:focus-visible{outline:2px solid #CCFF00;outline-offset:2px}.ds-copiado,.ds-copiado:hover{background:#CCFF00;border-color:#CCFF00;color:#0A0A0A}"
+    },
+    {
+      "name": "Linha de produção",
+      "kind": "custom",
+      "refersTo": "film",
+      "description": "Assinatura: película verde com furos e uma linha de cliente com casas feitas e a atual parada.",
+      "html": "<div class=\"ds-linha\"><div class=\"ds-pel ds-correndo\"><span>Achado</span><span>Refeito</span><span>No ar</span><span>Proposta</span><span>Respondeu</span><span>Fechado</span><span>Pago</span></div><div class=\"ds-cli\"><b>Souza &amp; Lima Advogados</b><small>advogados · Recife-PE · nota <span class=\"ds-num\">4,7</span></small><div class=\"ds-casas\"><i class=\"f\"></i><i class=\"f\"></i><i class=\"f\"></i><i class=\"a\"></i><i></i><i></i><i></i></div><div class=\"ds-pp\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"color:#8A8A8A\"><path d=\"M5 4v7a4 4 0 0 0 4 4h10\"/><path d=\"M15 11l4 4-4 4\"/></svg><span class=\"ds-parado\">parado há 6 dias</span><span>Sem resposta: mandar o follow-up</span></div></div></div>",
+      "css": ".ds-linha{border:1px solid #2A2A2A;border-radius:10px;background:#111111;overflow:hidden;font:400 14px/1.55 'Sora',system-ui,sans-serif;color:#F5F5F5}.ds-pel{position:relative;display:grid;grid-template-columns:repeat(7,1fr);height:62px;background:#CCFF00;color:#0A0A0A}.ds-pel::before,.ds-pel::after{content:'';position:absolute;left:0;right:0;height:6px;background-image:repeating-linear-gradient(90deg,#0A0A0A 0 10px,transparent 10px 24px)}.ds-pel::before{top:6px}.ds-pel::after{bottom:6px}.ds-correndo::before,.ds-correndo::after{animation:ds-furos .8s linear infinite}@keyframes ds-furos{to{background-position:-24px 0}}@media (prefers-reduced-motion:reduce){.ds-correndo::before,.ds-correndo::after{animation:none}}.ds-pel span{display:flex;align-items:center;justify-content:center;font:700 12px/1.1 'Chakra Petch',system-ui,sans-serif;letter-spacing:.05em;text-transform:uppercase}.ds-cli{display:grid;gap:8px;padding:14px 16px}.ds-cli b{font-weight:600;font-size:15px}.ds-cli small{color:#8A8A8A;font-size:13px}.ds-num{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}.ds-casas{display:grid;grid-template-columns:repeat(7,1fr);justify-items:center}.ds-casas i{width:20px;height:20px;border:1.5px solid #3A3A3A;border-radius:5px;background:#111111;box-sizing:border-box}.ds-casas i.f{background:#CCFF00;border-color:#CCFF00}.ds-casas i.a{border:2px solid #FFB547;background:#0A0A0A;outline:1px solid #FFB547;outline-offset:3px}.ds-pp{display:flex;flex-wrap:wrap;align-items:center;gap:8px;color:#B8B8B8}.ds-parado{display:inline-flex;align-items:center;height:24px;padding:0 8px;border:1px solid rgba(255,181,71,.5);border-radius:5px;color:#FFB547;font:600 12px/1 'Sora',sans-serif}"
+    },
+    {
+      "name": "Campo de busca",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Campo preto com filete forte; foco com borda e anel verde de 1px.",
+      "html": "<label class=\"ds-busca\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"11\" cy=\"11\" r=\"6.5\"/><path d=\"M20 20l-4.2-4.2\"/></svg><input type=\"search\" placeholder=\"Procurar cliente\"></label>",
+      "css": ".ds-busca{position:relative;display:block;width:240px;color:#8A8A8A}.ds-busca svg{position:absolute;left:12px;top:12px;pointer-events:none}.ds-busca input{width:100%;height:40px;padding:0 12px 0 36px;border:1px solid #3A3A3A;border-radius:8px;background:#0A0A0A;color:#F5F5F5;font:400 14px 'Sora',system-ui,sans-serif;caret-color:#CCFF00;transition:border-color .15s,box-shadow .15s;box-sizing:border-box}.ds-busca input::placeholder{color:#8A8A8A}.ds-busca input:hover{border-color:#4A4A4A}.ds-busca input:focus{outline:none;border-color:#CCFF00;box-shadow:0 0 0 1px #CCFF00}"
+    },
+    {
+      "name": "Controle segmentado",
+      "kind": "chip",
+      "refersTo": "segmented",
+      "description": "Filtro de escolha única; o escolhido fica em filete, não em verde.",
+      "html": "<div class=\"ds-seg\"><button aria-pressed=\"true\">Ativos</button><button>Pagos</button><button>Descartados</button><button>Todos</button></div>",
+      "css": ".ds-seg{display:inline-flex;gap:2px;padding:3px;border:1px solid #3A3A3A;border-radius:8px;background:#111111}.ds-seg button{height:32px;padding:0 12px;border:0;border-radius:6px;background:none;color:#B8B8B8;font:600 13px/1 'Sora',system-ui,sans-serif;cursor:pointer}.ds-seg button:hover{color:#F5F5F5}.ds-seg button:focus-visible{outline:2px solid #CCFF00;outline-offset:2px}.ds-seg button[aria-pressed=true]{background:#2A2A2A;color:#F5F5F5}"
+    },
+    {
+      "name": "Abas",
+      "kind": "nav",
+      "refersTo": "tab-count",
+      "description": "Abas de texto; a ativa com filete verde de 3px e contagem âmbar de parados.",
+      "html": "<nav class=\"ds-abas\"><button class=\"ds-aba\" aria-selected=\"true\">Linha de produção <span class=\"ds-conta ds-ambar\">3</span></button><button class=\"ds-aba\">Funil</button><button class=\"ds-aba\">Antes e depois <span class=\"ds-conta\">8</span></button><button class=\"ds-aba\">Dinheiro</button></nav>",
+      "css": ".ds-abas{display:flex;gap:2px;padding:0 14px;background:#0A0A0A;border-bottom:1px solid #2A2A2A}.ds-aba{position:relative;display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 12px;border:0;background:none;color:#B8B8B8;font:600 14px/1 'Sora',system-ui,sans-serif;cursor:pointer;white-space:nowrap}.ds-aba:hover,.ds-aba[aria-selected=true]{color:#F5F5F5}.ds-aba:focus-visible{outline:2px solid #CCFF00;outline-offset:2px}.ds-aba[aria-selected=true]::after{content:'';position:absolute;left:8px;right:8px;bottom:-1px;height:3px;border-radius:3px 3px 0 0;background:#CCFF00}.ds-conta{font:600 11px/1 'JetBrains Mono',monospace;padding:3px 6px;border-radius:4px;background:#1C1C1C;color:#B8B8B8}.ds-ambar{background:rgba(255,181,71,.12);color:#FFB547}"
+    },
+    {
+      "name": "Recado com Desfazer",
+      "kind": "custom",
+      "refersTo": "toast",
+      "description": "Recado flutuante depois de mover de estação; Desfazer por 6 segundos.",
+      "html": "<div class=\"ds-recado\"><i></i><span>Movido para Fechado.</span><button class=\"ds-desfazer\">Desfazer</button></div>",
+      "css": ".ds-recado{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border:1px solid #3A3A3A;border-radius:8px;background:#1C1C1C;color:#F5F5F5;font:500 14px 'Sora',system-ui,sans-serif}.ds-recado i{width:10px;height:10px;border-radius:2px;background:#CCFF00}.ds-desfazer{margin-left:6px;padding:0;border:0;background:none;color:#F5F5F5;font:600 14px 'Sora',system-ui,sans-serif;text-decoration:underline;text-decoration-color:#CCFF00;text-underline-offset:3px;cursor:pointer}.ds-desfazer:focus-visible{outline:2px solid #CCFF00;outline-offset:2px}"
+    },
+    {
+      "name": "Painel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Bloco de painel com filete e título em Chakra Petch caixa alta, sem sombra.",
+      "html": "<section class=\"ds-bloco\"><h2>GitHub</h2><p>Conecte para o /publicar colocar as páginas no ar.</p></section>",
+      "css": ".ds-bloco{display:grid;gap:12px;padding:24px;border:1px solid #2A2A2A;border-radius:10px;background:#111111;color:#F5F5F5;font:400 14px/1.55 'Sora',system-ui,sans-serif}.ds-bloco h2{margin:0;font:700 18px/1.1 'Chakra Petch',system-ui,sans-serif;letter-spacing:.02em;text-transform:uppercase}.ds-bloco p{margin:0;color:#B8B8B8}"
+    }
+  ],
+  "narrative": {
+    "northStar": "A Esteira do Aluno",
+    "overview": "Cada cliente é uma linha que atravessa as sete estações (Achado, Refeito, No ar, Proposta, Respondeu, Fechado, Pago). No alto da matriz corre a película verde da marca, com furos pretos em cima e embaixo e o nome das estações em Chakra Petch caixa alta; embaixo dela, uma linha por cliente, com casas quadradas ligadas por um trilho: as estações feitas em verde chapado, a atual com aro duplo, as que faltam em filete. Logo abaixo de cada linha fica o próximo passo numa frase e o comando pronto, em mono, com o botão Copiar. O painel não roda nada: entrega o comando.\n\nFora da película, o painel é preto de fábrica e denso como uma ferramenta: painéis um degrau acima do chão, filetes de 1px, interface em Sora 14px, títulos em Chakra Petch caixa alta. O verde-limão só aparece como campo inteiro (película, estação feita, botão principal, aba ativa, comando copiado, casa do \"Pago\"). O âmbar é exclusivo de \"parado\" e o vermelho é exclusivo de erro e de descartar. Nada brilha, nada tem degradê, nada flutua: não há nenhuma sombra com desfoque.\n\nO painel não usa nenhuma imagem raster. A arte antiga `painel-web/img/login-hero.png` continua no repositório, mas não é mais referenciada pelo build; a tela de entrar é a própria película. Ícones são SVG de traço inline.",
+    "keyCharacteristics": [
+      "A película é estado, não enfeite: diz em que estação cada cliente está e, enquanto o painel busca dados, os furos correm.",
+      "Três cores com papel único: verde para feito e ação principal, âmbar para parado, vermelho para erro e descarte.",
+      "Plano total: profundidade por degrau de cinza e por anéis chapados, nunca por sombra com desfoque.",
+      "Todo cliente tem o próximo passo escrito e, quando existe, o comando pronto para copiar.",
+      "Mono só no que se conta, mede ou é comando; frases e rótulos em Sora.",
+      "Mover de estação grava na hora e o recado oferece \"Desfazer\"."
+    ],
+    "rules": [
+      {
+        "name": "A Regra do Campo Inteiro",
+        "body": "Herdada da marca. O verde entra como superfície completa ou como contorno chapado, nunca como halo, brilho ou degradê, e nunca como letra sobre fundo claro.",
+        "section": "colors"
+      },
+      {
+        "name": "A Regra das Três Vozes",
+        "body": "Específica do painel. Verde é feito ou ação; âmbar é só \"parado\"; vermelho é só erro e descartar. Nenhuma das três cores empresta o papel da outra, e nenhum estado novo ganha uma quarta cor: se não é feito, parado ou erro, é cinza.",
+        "section": "colors"
+      },
+      {
+        "name": "A Regra do Mono que Conta",
+        "body": "Herdada da Fábrica de Copy. Mono só no que se conta ou se mede (ativos, parados, dias, valores, datas, nota) e no comando. Frases, rótulos, selos e títulos ficam em Sora ou Chakra Petch. O selo \"parado há 6 dias\" é Sora.",
+        "section": "typography"
+      },
+      {
+        "name": "A Regra da Placa de Estação",
+        "body": "Nome de estação é sempre Chakra Petch caixa alta, em qualquer lugar onde aparece.",
+        "section": "typography"
+      },
+      {
+        "name": "A Regra da Caixa Alta no CSS",
+        "body": "Herdada. Títulos escritos em sentence-case no código; a caixa alta vem do estilo.",
+        "section": "typography"
+      },
+      {
+        "name": "A Regra do Plano Total",
+        "body": "Herdada da Fábrica de Copy. Toda marca de destaque é anel ou contorno chapado, sem deslocamento e sem desfoque. Se um elemento novo pede sombra, ele pede um degrau de cinza ou um campo verde.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** usar a película com furos para mostrar sequência e estado; os furos correm enquanto algo está sendo buscado.",
+      "**Do** colocar só preto sobre o verde: furos, letra, contorno.",
+      "**Do** reservar o âmbar para \"parado\" e o vermelho para erro e descartar.",
+      "**Do** dar a todo cliente um próximo passo escrito e, quando existir, o comando em mono com Copiar.",
+      "**Do** gravar a mudança de estação na hora e oferecer \"Desfazer\" no recado por 6 segundos.",
+      "**Do** escrever nomes de estação em Chakra Petch caixa alta.",
+      "**Do** pôr em JetBrains Mono tabular só números, datas, valores e comandos.",
+      "**Do** manter cantos de 10px em painéis, 8px em botões e campos, 6px em comando e botão pequeno, 5px em casas e selos.",
+      "**Do** separar linhas com filetes de 1px em vez de caixas.",
+      "**Do** respeitar o movimento reduzido: furos, pisca e transições ficam parados."
+    ],
+    "donts": [
+      "**Don't** usar sombra com desfoque, brilho ou halo; anéis chapados são o limite.",
+      "**Don't** usar texto em degradê nem preenchimento em degradê. O padrão repetido dos furos e a máscara que esmaece a borda das abas no celular não são degradê decorativo.",
+      "**Don't** usar verde como letra sobre fundo claro, nem verde apagado para estado desligado.",
+      "**Don't** usar âmbar ou vermelho fora do papel de cada um.",
+      "**Don't** usar roxo ou azul em lugar nenhum.",
+      "**Don't** usar JetBrains Mono em frases, rótulos, selos ou títulos.",
+      "**Don't** usar botão em formato de pílula.",
+      "**Don't** colocar rótulo pequeno (eyebrow ou kicker) acima dos títulos.",
+      "**Don't** usar emoji ou caractere como ícone.",
+      "**Don't** usar travessão em texto visível.",
+      "**Don't** usar imagem raster no painel; a arte `img/login-hero.png` ficou fora do build."
+    ]
+  }
+}

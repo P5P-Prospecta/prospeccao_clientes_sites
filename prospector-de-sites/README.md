@@ -1,4 +1,4 @@
-# Prospector de Sites — v3.0.0
+# Prospector de Sites v3.1.0
 
 Prospecção semi-automática de clientes com sites ruins: acha, redesenha, publica e oferta.
 
@@ -20,7 +20,7 @@ O pacote inclui `manual.html` — o manual completo do aluno (linguagem simples,
 
 ## Dashboard local
 
-O plugin grava tudo num banco Supabase compartilhado da turma — cada aluno só vê os próprios dados (login por e-mail e senha). O painel de controle é um site web à parte: kanban com drag & drop, edição, exclusão, funil, comparador antes/depois integrado, follow-ups, controle de contratos (pendente/enviado/assinado) e painel financeiro (recebido, a receber e MRR das manutenções), tudo salvo no banco.
+O plugin grava tudo num banco Supabase compartilhado da turma — cada aluno só vê os próprios dados (login por e-mail e senha). O painel de controle é um site web à parte: linha de produção (cada cliente nas 7 estações, com o próximo passo e o comando pronto para copiar), funil com arrastar e soltar, antes e depois lado a lado, ficha do cliente (estação, valor, contrato, pagamento, anotações) e dinheiro (recebido, a receber e manutenção mensal), tudo salvo no banco. No chat, `/proximo` mostra a mesma lista de próximos passos.
 
 ## Requisitos
 
@@ -35,4 +35,4 @@ Tudo em dois lugares: `prospector-config.json` na pasta conectada (login do Supa
 
 ## Como atualizar
 
-No chat: `/plugin marketplace update p5p-prospecta` e reinicie o app (versão certa: 3.0.0). Atualiza sozinho a partir daí.
+No chat: `/plugin marketplace update p5p-prospecta` e reinicie o app (versão certa: 3.1.0). Atualiza sozinho a partir daí.

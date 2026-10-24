@@ -1,4 +1,4 @@
-# 🎯 P5P Prospecta — Prospector de Sites v3.0.0
+# 🎯 P5P Prospecta — Prospector de Sites v3.1.0
 
 **Plugin para Claude Code que roda o ciclo completo de prospecção e venda de sites — com CRM incluso:**
 
@@ -19,10 +19,11 @@ De graça, sem mensalidade — o único custo é a sua conta do Claude.
 | `/respostas` | Lê seu Gmail e move o card sozinho quando o cliente responde (agende diário!) |
 | `/followup` | 3+ dias sem resposta? Gera o lembrete gentil — 1 por lead, nunca repete |
 | `/contrato` | Fechou? Folha A4 imprimível + Word TRAVADO (cliente só preenche onde você deixar) |
+| `/proximo` | Lista o que fazer agora com cada cliente (parados primeiro) e o comando certo de cada um |
 
 ## 📊 CRM (painel web)
 
-Kanban com drag & drop, funil, clientes, comparador, follow-ups, contratos e painel financeiro (recebido, a receber, MRR e projeção 12 meses) — tudo num painel web com login (Supabase): **[prospeccao-clientes-sites.pages.dev](https://prospeccao-clientes-sites.pages.dev)**. Sem instalar nada.
+Linha de produção (cada cliente nas 7 estações, com o próximo passo e o comando pronto para copiar), funil com arrastar e soltar, antes e depois lado a lado e dinheiro (recebido, a receber e manutenção mensal), tudo num painel web com login (Supabase): **[prospeccao-clientes-sites.pages.dev](https://prospeccao-clientes-sites.pages.dev)**. Sem instalar nada.
 
 ## Como instalar
 
@@ -39,7 +40,7 @@ Re-adicionar o link NÃO atualiza (fica em cache). Faça:
 ```
 /plugin marketplace update p5p-prospecta
 ```
-e reinicie o app — a versão certa é a **3.0.0** (confira em Gerenciar plugins). Se não subir: desinstale o plugin → remova o marketplace → feche o app → adicione e instale de novo. A atualização é automática (autoUpdate ativado).
+e reinicie o app — a versão certa é a **3.1.0** (confira em Gerenciar plugins). Se não subir: desinstale o plugin → remova o marketplace → feche o app → adicione e instale de novo. A atualização é automática (autoUpdate ativado).
 
 ## Requisitos
 

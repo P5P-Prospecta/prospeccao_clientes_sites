@@ -10,6 +10,9 @@ Uso:
   python3 supabase_client.py set-perfil CAMINHO/prospector-config.json '{"nome":"..."}'
   python3 supabase_client.py list-leads CAMINHO/prospector-config.json [status]
   python3 supabase_client.py upsert-lead CAMINHO/prospector-config.json '{"slug":"...", ...}'
+  python3 supabase_client.py proximos CAMINHO/prospector-config.json
+
+No Windows, se "python3" não existir, use "python" (ou "py -3").
 
 O projeto (URL e chave "anon") é o mesmo pra toda a turma — só a
 identidade de login (email/senha do aluno) muda, e o RLS do banco
@@ -18,6 +21,7 @@ garante que cada aluno só enxerga os próprios dados.
 
 import sys
 import json
+import datetime
 import urllib.request
 import urllib.error
 
@@ -45,7 +49,7 @@ def _salvar_config(caminho, cfg):
         json.dump(cfg, f, ensure_ascii=False, indent=2)
 
 
-def _chamada(metodo, path, body=None, token=None, headers_extra=None):
+def _chamada(metodo, path, body=None, token=None, headers_extra=None, silencioso=False):
     url = SUPABASE_URL + path
     dados = json.dumps(body).encode("utf-8") if body is not None else None
     req = urllib.request.Request(url, data=dados, method=metodo)
@@ -61,7 +65,12 @@ def _chamada(metodo, path, body=None, token=None, headers_extra=None):
             return resp.status, (json.loads(corpo) if corpo else {})
     except urllib.error.HTTPError as e:
         corpo = e.read().decode("utf-8", "ignore")
-        print(f"[ERRO HTTP {e.code}] {metodo} {path} -> {corpo}")
+        if not silencioso:
+            print(f"[ERRO HTTP {e.code}] {metodo} {path} -> {corpo}")
+            if e.code in (401, 403) and path.startswith("/rest/v1/"):
+                print("[DICA] O banco recusou. Se o seu e-mail ainda não tem acesso liberado ao "
+                      "P5P Prospecta, use o e-mail da compra do Método P5P (o mesmo do painel). "
+                      "Se comprou com outro e-mail, fale com o suporte na área de membros.")
         raise
 
 
@@ -78,6 +87,19 @@ def login(caminho_config, email, senha):
     }
     _salvar_config(caminho_config, cfg)
     print(f"[ok] Login feito. Aluno: {email} (id {dados['user']['id']})")
+    if _tem_acesso(dados["access_token"]) is False:
+        print("[AVISO] Este e-mail ainda não tem acesso liberado ao P5P Prospecta. Use o e-mail "
+              "da compra do Método P5P (crie a conta no painel com ele). Se comprou com outro "
+              "e-mail, fale com o suporte na área de membros do Método P5P.")
+
+
+def _tem_acesso(token):
+    """True/False conforme a compra do Método P5P; None se o banco ainda não tem essa regra."""
+    try:
+        _, dados = _chamada("POST", "/rest/v1/rpc/tem_acesso", body={}, token=token, silencioso=True)
+    except Exception:
+        return None
+    return dados is True
 
 
 def _access_token(caminho_config):
@@ -134,13 +156,138 @@ def upsert_lead(caminho_config, lead_json):
     token, user_id = _access_token(caminho_config)
     corpo = json.loads(lead_json)
     corpo["user_id"] = user_id
+    # on_conflict=user_id,slug: sem isso o banco tenta criar outro lead com o mesmo slug
+    # e recusa (409). Com ele, o lead que já existe é atualizado só nos campos enviados.
     _chamada(
-        "POST", "/rest/v1/leads",
+        "POST", "/rest/v1/leads?on_conflict=user_id,slug",
         body=corpo, token=token,
         headers_extra={"Prefer": "resolution=merge-duplicates",
                         "Content-Type": "application/json"},
     )
     print(f"[ok] Lead '{corpo.get('slug')}' salvo.")
+
+
+# ---------------------------------------------------------------------------
+# O que fazer agora: a mesma lógica da aba "Linha de produção" do painel web.
+# ---------------------------------------------------------------------------
+ETAPAS = ["Achado", "Refeito", "No ar", "Proposta", "Respondeu", "Fechado", "Pago"]
+ORDEM_STATUS = ["novo", "redesenhado", "publicado", "proposta", "respondeu", "fechado"]
+LIMITE = {"redesenhado": 2, "publicado": 2, "respondeu": 2, "fechado": 5}  # dias sem movimento
+FOLLOWUP_DIAS = 3
+
+
+def _dias_desde(valor):
+    if not valor:
+        return 0
+    try:
+        data = datetime.date.fromisoformat(str(valor)[:10])
+    except ValueError:
+        return 0
+    return max(0, (datetime.date.today() - data).days)
+
+
+def _estacao(lead):
+    status = lead.get("status") or "novo"
+    if status == "descartado":
+        return -1
+    if status == "fechado" and lead.get("pago"):
+        return 6
+    return ORDEM_STATUS.index(status) if status in ORDEM_STATUS else 0
+
+
+def _dinheiro(valor):
+    texto = f"{float(valor or 0):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    return "R$ " + texto
+
+
+def proximo_passo(lead, github_ok=True):
+    """Devolve (o que fazer, comando ou None, está parado?, dias)."""
+    nome = lead.get("nome") or lead.get("slug")
+    est = _estacao(lead)
+    mexido = _dias_desde(lead.get("atualizado_em"))
+    if est == 0:
+        return "Refazer o site com o conteúdo real do cliente", f"/redesenhar {nome}", False, mexido
+    if est == 1:
+        texto = "Publicar a página nova" if github_ok else "Conectar o GitHub (painel, Configurações) e publicar"
+        return texto, f"/publicar {nome}", mexido >= LIMITE["redesenhado"], mexido
+    if est == 2:
+        texto = "Mandar a proposta por e-mail" if lead.get("email") else "Sem e-mail: a proposta vai pelo WhatsApp"
+        return texto, f"/proposta {nome}", mexido >= LIMITE["publicado"], mexido
+    if est == 3:
+        if "follow" in (lead.get("obs") or "").lower():
+            return ("Já recebeu o follow-up. Sem resposta: tente o WhatsApp ou descarte",
+                    f"/respostas {nome}", mexido >= 4, mexido)
+        dias = _dias_desde(lead.get("data_proposta") or lead.get("atualizado_em"))
+        if dias >= FOLLOWUP_DIAS:
+            return f"Sem resposta há {dias} dias: mandar o follow-up", f"/followup {nome}", True, dias
+        return "Esperando a resposta. Conferir o e-mail", "/respostas", False, dias
+    if est == 4:
+        return ("Respondeu: falar com o cliente e combinar o valor. Quando fechar, marque Fechado no painel",
+                None, mexido >= LIMITE["respondeu"], mexido)
+    if est == 5:
+        contrato = lead.get("contrato_status") or "pendente"
+        parado = mexido >= LIMITE["fechado"]
+        if contrato == "pendente":
+            return "Fechou: gerar o contrato", f"/contrato {nome}", parado, mexido
+        if contrato == "enviado":
+            return "Contrato enviado: esperando a assinatura. Quando assinar, marque no painel", None, parado, mexido
+        return "Contrato assinado: receber o pagamento e marcar Pago no painel", None, parado, mexido
+    if est == 6:
+        manut = lead.get("manutencao")
+        return (f"Pago. Manutenção de {_dinheiro(manut)} por mês" if manut else "Pago"), None, False, 0
+    return "Descartado", None, False, 0
+
+
+def texto_proximos(leads, github_ok=True):
+    if not leads:
+        return ("Nenhum cliente ainda.\n"
+                "Comece por /prospectar (se ainda não fez a configuração, rode /setup antes).")
+    ativos, pagos, descartados = [], 0, 0
+    for lead in leads:
+        est = _estacao(lead)
+        if est == -1:
+            descartados += 1
+        elif est == 6:
+            pagos += 1
+        else:
+            ativos.append((lead, est, proximo_passo(lead, github_ok)))
+    parados = sorted([a for a in ativos if a[2][2]], key=lambda a: -a[2][3])
+    andando = sorted([a for a in ativos if not a[2][2]], key=lambda a: -a[1])
+
+    linhas = [f"O QUE FAZER AGORA ({len(ativos)} clientes ativos, {len(parados)} parados)"]
+
+    def bloco(titulo, itens):
+        if not itens:
+            return
+        linhas.append("")
+        linhas.append(titulo)
+        for n, (lead, est, (texto, cmd, parado, dias)) in enumerate(itens, 1):
+            cab = f"{n}. {lead.get('nome') or lead.get('slug')} · {ETAPAS[est]}"
+            if parado:
+                cab += f" · parado há {dias} {'dia' if dias == 1 else 'dias'}"
+            linhas.append(cab)
+            linhas.append(f"   {texto}")
+            if cmd:
+                linhas.append(f"   Comando: {cmd}")
+
+    bloco("PARADOS (faça primeiro)", parados)
+    bloco("ANDANDO (do mais perto de fechar para o começo)", andando)
+    if not ativos:
+        linhas.append("")
+        linhas.append("Nenhum cliente ativo agora. Rode /prospectar para achar mais.")
+    linhas.append("")
+    linhas.append(f"Pagos: {pagos} · Descartados: {descartados}")
+    return "\n".join(linhas)
+
+
+def proximos(caminho_config):
+    token, user_id = _access_token(caminho_config)
+    _, leads = _chamada("GET", f"/rest/v1/leads?user_id=eq.{user_id}&select=*", token=token)
+    _, perfis = _chamada("GET", f"/rest/v1/perfis?user_id=eq.{user_id}&select=github_usuario,github_token",
+                         token=token)
+    perfil = perfis[0] if perfis else {}
+    github_ok = bool(perfil.get("github_usuario") and perfil.get("github_token"))
+    print(texto_proximos(leads, github_ok))
 
 
 def main():
@@ -160,6 +307,8 @@ def main():
         list_leads(caminho_config, resto[0] if resto else None)
     elif comando == "upsert-lead":
         upsert_lead(caminho_config, resto[0])
+    elif comando == "proximos":
+        proximos(caminho_config)
     else:
         print(f"[ERRO] Comando desconhecido: {comando}")
         print(__doc__)

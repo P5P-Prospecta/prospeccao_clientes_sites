@@ -10,13 +10,13 @@ Verifique se há uma pasta do usuário conectada. Se não houver, peça para con
 
 ## 2. Login no Supabase (obrigatório, primeiro passo de verdade)
 
-Pergunte se o aluno já criou a conta dele no painel web do Prospector de Sites (fora do chat, no navegador). Se ainda não criou, oriente a fazer isso agora antes de continuar — é lá que o cadastro (email + senha) acontece, nunca pelo chat.
+Pergunte se o aluno já criou a conta dele no painel web (https://prospeccao-clientes-sites.pages.dev, fora do chat, no navegador). Se ainda não criou, oriente a fazer isso agora antes de continuar, **com o mesmo e-mail da compra do Método P5P** (o acesso é liberado por esse e-mail). O cadastro (e-mail + senha) acontece lá, nunca pelo chat.
 
 Com a conta já criada, rode o login seguindo a skill `supabase-sync`:
 ```
 python3 [caminho da skill]/references/supabase_client.py login CAMINHO/prospector-config.json "email-do-aluno" "senha-do-aluno"
 ```
-Isso salva só um token de acesso renovável no `prospector-config.json` — a senha não fica guardada em lugar nenhum depois deste comando. Se der erro, confirme que o e-mail/senha batem com o cadastro feito no painel web.
+Isso salva só um token de acesso renovável no `prospector-config.json` — a senha não fica guardada em lugar nenhum depois deste comando. Se der erro, confirme que o e-mail/senha batem com o cadastro feito no painel web. Se aparecer o aviso de acesso não liberado, o e-mail não é o da compra do Método P5P: oriente a criar a conta no painel com o e-mail da compra (ou falar com o suporte na área de membros) e pare aqui.
 
 ## 3. Verificar perfil existente
 
@@ -56,4 +56,4 @@ Copie `manual.html` da pasta do plugin para a pasta conectada (sobrescrevendo ve
 
 ## 8. Encerrar
 
-Confirme o que foi salvo e explique o ciclo (guiando SEMPRE o próximo passo ao fim de cada comando): `/prospectar` → `/redesenhar` → `/publicar` → `/proposta`, com `/editor` opcional para ajustes manuais e o painel web (com login) como painel de controle de tudo — leads, funil, contratos e financeiro.
+Confirme o que foi salvo e explique o ciclo (guiando SEMPRE o próximo passo ao fim de cada comando): `/prospectar` → `/redesenhar` → `/publicar` → `/proposta` → `/respostas` e `/followup` → `/contrato`, com `/editor` opcional para ajustes manuais. Diga que, sempre que não souber o que fazer, é só rodar `/proximo`, e que o painel web (https://prospeccao-clientes-sites.pages.dev, aba Linha de produção) mostra o próximo passo de cada cliente com o comando pronto para copiar.

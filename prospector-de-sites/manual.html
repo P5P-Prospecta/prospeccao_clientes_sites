@@ -43,7 +43,7 @@
 <body>
 <div class="wrap">
   <h1>📘 Manual do Aluno — <span>P5P Prospecta</span></h1>
-  <div class="versao">Método P5P · versão 3.0.0</div>
+  <div class="versao">Método P5P · versão 3.1.0</div>
 
   <div class="lead">
     Esse manual não pressupõe que você entende de programação. Você não vai instalar programa nenhum pesado, não vai escrever código, e não precisa entender o que está acontecendo por trás — só precisa saber onde clicar e o que digitar. Vá com calma, um passo de cada vez, e não pule nenhum.
@@ -120,20 +120,20 @@
     <tr><td><code>/respostas</code></td><td>Olha seu Gmail e avisa quem respondeu a proposta, atualizando o painel sozinho.</td></tr>
     <tr><td><code>/followup</code></td><td>Se já faz 3 dias ou mais sem resposta, gera um lembrete educado — só manda 1 vez por cliente.</td></tr>
     <tr><td><code>/contrato</code></td><td>Cliente fechou com você? Gera o contrato prontinho pra assinar.</td></tr>
+    <tr><td><code>/proximo</code></td><td>Mostra o que fazer agora com cada cliente e o comando certo. Use sempre que não souber o próximo passo.</td></tr>
   </table>
-  <div class="box dica">💡 Não sabe o que fazer agora? Pergunte pro Claude: <i>"o que eu faço agora?"</i> — ele sabe em que passo do processo você está e te guia pro próximo comando.</div>
+  <div class="box dica">Não sabe o que fazer agora? Rode <code>/proximo</code>. Ele lista cada cliente com o que falta fazer e o comando certo, começando pelos que estão parados. A mesma lista aparece no painel, na aba Linha de produção.</div>
 
   <h2 id="painel">5. O painel (onde você vê tudo)</h2>
   <p>Acesse de novo: <a href="https://prospeccao-clientes-sites.pages.dev" target="_blank">prospeccao-clientes-sites.pages.dev</a> — login com o mesmo e-mail/senha do Passo 1.</p>
   <ul>
-    <li><b>Pipeline</b> — um quadro com colunas (Novo, Redesenhado, Publicado, Proposta, etc.). Você arrasta o cartão do cliente conforme ele avança.</li>
-    <li><b>Clientes</b> — lista de todo mundo, com busca.</li>
-    <li><b>Comparador</b> — mostra o site antigo e o novo lado a lado.</li>
-    <li><b>Follow-ups</b> — quem está parado há dias sem resposta.</li>
-    <li><b>Contratos</b> — status de cada contrato (pendente, enviado, assinado).</li>
-    <li><b>Financeiro</b> — quanto você já recebeu, quanto tem a receber.</li>
-    <li><b>Configurações</b> — seus dados e a conexão com o GitHub.</li>
+    <li><b>Linha de produção</b>: cada cliente numa linha, passando por sete estações (Achado, Refeito, No ar, Proposta, Respondeu, Fechado, Pago). Embaixo de cada um aparece o próximo passo com o comando pronto e um botão Copiar. É só colar no Claude Code. Quem está parado aparece primeiro.</li>
+    <li><b>Funil</b>: as mesmas estações em colunas. Arraste o cliente para mudar de estação.</li>
+    <li><b>Antes e depois</b>: o site antigo ao lado da página nova, do jeito que o cliente vê na proposta.</li>
+    <li><b>Dinheiro</b>: quem fechou, contrato, pagamento, quanto já entrou, quanto falta e a manutenção de todo mês.</li>
+    <li><b>Configurações</b>: seus dados e a conexão com o GitHub.</li>
   </ul>
+  <p>Clique no nome de um cliente para abrir a ficha dele: mudar a estação, colocar o valor, marcar contrato assinado e pagamento, e anotar o que ele disse.</p>
 
   <h2 id="erro">6. Travou? Deu erro? Comece aqui</h2>
   <div class="box erro">

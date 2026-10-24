@@ -1,0 +1,5 @@
+# Só o necessário para publicar a função do webhook pelo Supabase CLI.
+project_id = "jzlkqzamkgxxlbmpfisq"
+
+[functions.hotmart-webhook]
+verify_jwt = false

@@ -47,7 +47,17 @@ Sem o segundo argumento, lista todos. Com um status (`novo`, `redesenhado`, `pub
 python3 [caminho]/references/supabase_client.py upsert-lead CAMINHO/prospector-config.json '{"slug":"clinica-vida", "nome":"Clínica Vida", "status":"redesenhado", ...}'
 ```
 
-`slug` é a chave — se já existir um lead com esse slug pra esse aluno, atualiza; se não, cria. Sempre inclua todos os campos que você tem no momento (o comando não apaga campos que você não mandar, mas é mais seguro mandar o registro completo quando estiver com ele em mãos).
+`slug` é a chave (o script grava com `on_conflict=user_id,slug`): se já existir um lead com esse slug pra esse aluno, atualiza só os campos enviados; se não, cria. Sempre inclua todos os campos que você tem no momento (o comando não apaga campos que você não mandar, mas é mais seguro mandar o registro completo quando estiver com ele em mãos).
+
+## O que fazer agora (lista de próximos passos)
+
+```bash
+python3 [caminho]/references/supabase_client.py proximos CAMINHO/prospector-config.json
+```
+
+Imprime, em português, cada cliente ativo com a estação, o que falta fazer e o comando certo (parados primeiro). É a mesma lógica da aba "Linha de produção" do painel. Usado pelo `/proximo`; use também no fim de qualquer comando para sugerir o próximo passo.
+
+No Windows, se `python3` não existir, use `python` (ou `py -3`) em todos os comandos desta skill.
 
 ## Como os comandos devem usar isso (SEMPRE)
 
